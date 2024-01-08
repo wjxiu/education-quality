@@ -1,11 +1,13 @@
 package com.github.wjxiu.DO;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 教师表
@@ -15,25 +17,18 @@ import lombok.Data;
 @Data
 public class TeacherDO implements Serializable {
     /**
-     * 
+     *是唯一标识也是工号
      */
-    @TableId(value = "id")
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 
+     *
      */
     @TableField(value = "real_name")
-    private Integer real_name;
-
+    private String realName;
     /**
-     * 工号
-     */
-    @TableField(value = "teacher_no")
-    private Integer teacher_no;
-
-    /**
-     * 
+     *
      */
     @TableField(value = "phone")
     private String phone;
@@ -45,29 +40,35 @@ public class TeacherDO implements Serializable {
     private String email;
 
     /**
-     * 
+     *
      */
     @TableField(value = "create_time")
-    private Date create_time;
+    private Date createTime;
 
     /**
-     * 
+     *
      */
     @TableField(value = "update_time")
-    private Date update_time;
+    private Date updateTime;
 
     /**
      * 是否删除 1为已经删除，0未删除
      */
     @TableField(value = "del_flag")
-    private Integer del_flag;
+    private Integer delFlag;
 
     /**
-     * 
+     *
      */
     @TableField(value = "password")
     private String password;
 
+    /**
+     * 是否为管理员,1为是,0为否
+     */
+    @TableField(value = "admin_flag")
+    private Integer adminFlag;
+
     @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1677L;
 }

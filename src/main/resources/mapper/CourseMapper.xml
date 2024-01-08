@@ -6,13 +6,13 @@
 
     <resultMap id="BaseResultMap" type="com.github.wjxiu.DO.CourseDO">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="teacher_id" column="teacher_id" jdbcType="INTEGER"/>
-            <result property="course_name" column="course_name" jdbcType="VARCHAR"/>
-            <result property="department_name" column="department_name" jdbcType="VARCHAR"/>
-            <result property="major_name" column="major_name" jdbcType="VARCHAR"/>
-            <result property="start_year" column="start_year" jdbcType="INTEGER"/>
+            <result property="teacherId" column="teacher_id" jdbcType="INTEGER"/>
+            <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
+            <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+            <result property="majorName" column="major_name" jdbcType="VARCHAR"/>
+            <result property="startYear" column="start_year" jdbcType="INTEGER"/>
             <result property="term" column="term" jdbcType="INTEGER"/>
-            <result property="del_flag" column="del_flag" jdbcType="INTEGER"/>
+            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">

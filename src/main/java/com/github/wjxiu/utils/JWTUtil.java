@@ -45,7 +45,7 @@ public final class JWTUtil {
 
     private static final long EXPIRATION = 60 * 60 * 24 * 365L;
     public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String ISS = "index12306";
+    public static final String ISS = "edu";
     public static final String SECRET = "SecretKey039245678901232039487623456783092349288901402967890140939827";
 
     public static void main(String[] args) {
@@ -61,7 +61,6 @@ public final class JWTUtil {
     public static String generateAccessToken(UserInfoDTO userInfo) {
         Map<String, Object> customerUserMap = new HashMap<>();
         customerUserMap.put(USER_ID_KEY, userInfo.getUserId());
-        customerUserMap.put(USER_NAME_KEY, userInfo.getUsername());
         customerUserMap.put(REAL_NAME_KEY, userInfo.getRealName());
         String jwtToken = Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, SECRET)

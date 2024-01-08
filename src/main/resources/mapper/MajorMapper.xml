@@ -6,12 +6,12 @@
 
     <resultMap id="BaseResultMap" type="com.github.wjxiu.DO.MajorDO">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="major_name" column="major_name" jdbcType="VARCHAR"/>
-            <result property="department_id" column="department_id" jdbcType="INTEGER"/>
-            <result property="department_name" column="department_name" jdbcType="VARCHAR"/>
-            <result property="create_name" column="create_name" jdbcType="TIMESTAMP"/>
-            <result property="update_time" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="del_flag" column="del_flag" jdbcType="TINYINT"/>
+            <result property="majorName" column="major_name" jdbcType="VARCHAR"/>
+            <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
+            <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+            <result property="createName" column="create_name" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">

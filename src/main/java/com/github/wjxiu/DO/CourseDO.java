@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class CourseDO implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -24,31 +24,31 @@ public class CourseDO implements Serializable {
      * 教这门课的教师id
      */
     @TableField(value = "teacher_id")
-    private Integer teacher_id;
+    private Integer teacherId;
 
     /**
      * 课程名字
      */
     @TableField(value = "course_name")
-    private String course_name;
+    private String courseName;
 
     /**
      * 学院名字
      */
     @TableField(value = "department_name")
-    private String department_name;
+    private String departmentName;
 
     /**
      * 专业名字
      */
     @TableField(value = "major_name")
-    private String major_name;
+    private String majorName;
 
     /**
      * 开始年份
      */
     @TableField(value = "start_year")
-    private Integer start_year;
+    private Integer startYear;
 
     /**
      * 上学期 0 下学期1
@@ -57,10 +57,10 @@ public class CourseDO implements Serializable {
     private Integer term;
 
     /**
-     * 
+     *
      */
     @TableField(value = "del_flag")
-    private Integer del_flag;
+    private Integer delFlag;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

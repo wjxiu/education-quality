@@ -6,8 +6,8 @@ import com.github.wjxiu.DO.TeacherDO;
 /**
 * @author xiu
 * @description 针对表【teacher(教师表)】的数据库操作Mapper
-* @createDate 2024-01-06 21:21:31
-* @Entity generator.DO.Teacher
+* @createDate 2024-01-06 21:51:51
+* @Entity generator.DO.TeacherDO
 */
 public interface TeacherMapper extends BaseMapper<TeacherDO> {
 

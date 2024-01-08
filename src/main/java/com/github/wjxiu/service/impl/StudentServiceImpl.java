@@ -1,21 +1,66 @@
 package com.github.wjxiu.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.wjxiu.DO.StudentDO;
+import com.github.wjxiu.DTO.ChangePwdReq;
+import com.github.wjxiu.DTO.LoginResp;
+import com.github.wjxiu.common.Exception.ClientException;
+import com.github.wjxiu.common.token.UserContext;
+import com.github.wjxiu.common.token.UserInfoDTO;
 import com.github.wjxiu.mapper.StudentMapper;
 import com.github.wjxiu.service.StudentService;
+import com.github.wjxiu.utils.JWTUtil;
+import com.github.wjxiu.utils.PasswordUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
-* @author xiu
-* @description 针对表【student(学生表)】的数据库操作Service实现
-* @createDate 2024-01-06 21:21:24
-*/
+ * @author xiu
+ * @description 针对表【student(学生表)】的数据库操作Service实现
+ * @createDate 2024-01-06 21:21:24
+ */
 @Service
+@RequiredArgsConstructor
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
-    implements StudentService {
+        implements StudentService {
+    final StudentMapper studentMapper;
+    @Override
+    public LoginResp login(Integer id, String password) {
+        StudentDO stu = getById(id);
+        if (stu == null) throw new ClientException("没有这名用户");
+        if (!stu.getPassword().equals(password)) throw new ClientException("密码错误");
+        String token = JWTUtil.generateAccessToken(new UserInfoDTO(id, stu.getRealName(), null));
+        LoginResp loginResp = new LoginResp();
+        loginResp.setId(id);
+        loginResp.setName(stu.getRealName());
+        loginResp.setToken(token);
+        return loginResp;
+    }
 
+    @Override
+    public Integer register(StudentDO studentDO) {
+        if (StringUtils.hasLength(studentDO.getEmail())&&studentMapper.selectCount(new LambdaQueryWrapper<StudentDO>().eq(StudentDO::getEmail,studentDO.getEmail()))>0) throw new ClientException("邮箱重复");
+        String passwd = PasswordUtil.hashPassword(studentDO.getPassword());
+        studentDO.setPassword(passwd);
+        int insert = studentMapper.insert(studentDO);
+        if (insert<1)throw new ClientException("注册失败");
+        return studentDO.getId();
+    }
+
+    @Override
+    public Boolean changePwd(ChangePwdReq changePwdReq) {
+        if (!changePwdReq.getRepeatedPasswd().equals(changePwdReq.getNewPasswd()))throw new ClientException("两次密码不相同");
+        Integer userId = UserContext.getUserId();
+        StudentDO studentDO = getById(userId);
+        String password = studentDO.getPassword();
+        if (!PasswordUtil.verifyPassword(changePwdReq.getOriginalPasswd(),password)) throw new ClientException("原密码错误");
+        String s = PasswordUtil.hashPassword(changePwdReq.getNewPasswd());
+        studentDO.setPassword(s);
+        return  studentMapper.update(studentDO,new LambdaQueryWrapper<StudentDO>().eq(StudentDO::getId,userId))>0;
+    }
 }
 
 

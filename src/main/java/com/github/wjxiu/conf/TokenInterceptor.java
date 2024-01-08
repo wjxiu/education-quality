@@ -27,13 +27,13 @@ public class TokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String servletPath = request.getServletPath();
 //        token过滤白名单
-        List<String> list = Arrays.asList("/login","/register", "/setfortest", "/error","/createToken","/test");
+        List<String> list = Arrays.asList("/user/login","/user/register", "/setfortest", "/error","/createToken","/test");
         boolean inwhitelist = list.stream().anyMatch(servletPath::startsWith);
         if (inwhitelist)return true;
         String token = request.getHeader("Authorization");
         if (!StringUtils.hasLength(token))throw new  ClientException("缺少token");
         UserInfoDTO userInfoDTO = JWTUtil.parseJwtToken(token);
-        if (userInfoDTO==null||!StringUtils.hasLength(userInfoDTO.getUserId()))throw new ClientException("token无效");
+        if (userInfoDTO==null||!StringUtils.hasLength(userInfoDTO.getUserId().toString()))throw new ClientException("token无效");
         UserContext.set(userInfoDTO);
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }

@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 public class DepartmentDO implements Serializable {
     /**
-     * 
+     *
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -31,20 +31,20 @@ public class DepartmentDO implements Serializable {
      * 修改时间
      */
     @TableField(value = "update_time")
-    private Date update_time;
+    private Date updateTime;
 
     /**
      * 修改时间
      */
     @TableField(value = "create_name")
-    private Date create_name;
+    private Date createName;
 
     /**
      * 1 已删除 0未删除
      */
     @TableField(value = "del_flag")
-    private Integer del_flag;
+    private Integer delFlag;
 
     @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 12L;
 }

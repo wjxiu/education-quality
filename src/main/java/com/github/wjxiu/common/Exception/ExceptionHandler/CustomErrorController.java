@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * @author xiu
  * @create 2023-12-10 13:40
  */
-@RestController
+//@RestController
 @Slf4j
 public class CustomErrorController implements ErrorController {
 
@@ -26,7 +26,7 @@ public class CustomErrorController implements ErrorController {
         // 获取错误状态码
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         // 在这里处理自定义的错误逻辑，并返回JSON格式的错误信息
-        String errorMessage = throwable.getLocalizedMessage();
+        String errorMessage = throwable.getMessage();
         String errorMessageReal = extractErrorCode(errorMessage);
         return ResponseEntity.status(statusCode != null ? statusCode : 500).body("errorCode:" + errorMessageReal + ";");
     }

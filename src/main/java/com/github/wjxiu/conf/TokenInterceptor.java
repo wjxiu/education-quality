@@ -25,6 +25,7 @@ import java.util.List;
 public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if(request.getMethod().equals("OPTIONS"))return true;
         String servletPath = request.getServletPath();
 //        token过滤白名单
         List<String> list = Arrays.asList("/user/login","/user/register","/user/logout","/favicon.ico", "/setfortest", "/error","/createToken","/test");
@@ -46,14 +47,14 @@ public class TokenInterceptor implements HandlerInterceptor {
                     .filter(keyValue -> keyValue.length == 2 && "token".equals(keyValue[0]))
                     .findFirst()
                     .map(keyValue -> keyValue[1])
-                    .orElseThrow(() -> new ClientException("缺少token"));
+                    .orElse( null);
             if (StringUtils.hasLength(temptoken)){
                 return temptoken;
             }
         }
         if (request.getCookies()!=null&&request.getCookies().length>0){
             Cookie[] cookies = request.getCookies();
-            String cookieName = "token"; // 替换成你要获取的Cookie的名称
+            String cookieName = "Authorization"; // 替换成你要获取的Cookie的名称
             String cookieValue = Arrays.stream(cookies)
                     .filter(cookie -> cookie.getName().equals(cookieName))
                     .findFirst()

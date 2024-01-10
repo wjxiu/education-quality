@@ -54,20 +54,25 @@
         from teacher t
         left join  course c on t.id = c.teacher_id
         <where>
-            <if test="teacher.realName!=null and teacher.realName!=''">
-                and t.real_name like concat('%', #{teacher.realName}, '%')
-            </if>
-            <if test="teacher.departmentName!=null and teacher.departmentName!=''">
-                and c.department_name like concat('%', #{teacher.departmentName}, '%')
-            </if>
-            <if test="teacher.majorName!=null and teacher.majorName!=''">
-                and c.major_name like concat('%', #{teacher.majorName}, '%')
-            </if>
-            <if test="teacher.startYear!=null and teacher.startYear!=''">
-                and c.start_year= #{teacher.startYear}
-            </if>
-            <if test="teacher.term!=null ">
-                and c.term= #{teacher.term}
+            <if test="teacher!=null">
+                <if test="teacher.realName!=null and teacher.realName!='' ">
+                    and t.real_name like concat('%', #{teacher.realName}, '%')
+                </if>
+                <if test="teacher.adminFlag!=null and teacher.adminFlag!='' ">
+                    and t.admin_flag like concat('%', #{teacher.adminFlag}, '%')
+                </if>
+                <if test="teacher.departmentName!=null and teacher.departmentName!=''">
+                    and c.department_name like concat('%', #{teacher.departmentName}, '%')
+                </if>
+                <if test="teacher.majorName!=null and teacher.majorName!=''">
+                    and c.major_name like concat('%', #{teacher.majorName}, '%')
+                </if>
+                <if test="teacher.startYear!=null and teacher.startYear!=''">
+                    and c.start_year= #{teacher.startYear}
+                </if>
+                <if test="teacher.term!=null ">
+                    and c.term= #{teacher.term}
+                </if>
             </if>
             and t.del_flag=0
         </where>

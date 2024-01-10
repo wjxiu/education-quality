@@ -17,6 +17,8 @@ public class TeacherPageReq {
      */
     @TableField(value = "real_name")
     private String realName;
+    @TableField(value = "admin_flag")
+    private Integer adminFlag;
 
     /**
      * 学院名字

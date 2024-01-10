@@ -2,6 +2,7 @@ package com.github.wjxiu.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.service.TeacherService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +39,18 @@ public class TeacherController {
     /**
      * 查询【请填写功能名称】列表
      */
-    @PostMapping("/list")
-    public PageInfo<TeacherPageResp> list(@RequestBody  TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
+    @GetMapping("/list")
+    public R<PageInfo<TeacherPageResp>> list(TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
+        log.info(String.valueOf(teacher));
         PageInfo<TeacherPageResp> teacherPageResps = teacherService.selectTeacherList(teacher, pageNum, pageSize);
         log.info(teacherPageResps.toString());
         log.info(String.valueOf(teacherPageResps.getClass()));
-        return teacherPageResps;
+        return R.success(teacherPageResps);
+    }
+    @Data
+    class testparam{
+        Integer param1;
+        String param2;
     }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){

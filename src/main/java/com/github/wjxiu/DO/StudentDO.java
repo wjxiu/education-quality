@@ -67,7 +67,7 @@ public class StudentDO implements Serializable {
      *
      */
     @TableField(value = "create_time")
-    private Integer createTime;
+    private Date createTime;
 
     /**
      *

@@ -8,7 +8,7 @@
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="courseId" column="course_id" jdbcType="INTEGER"/>
             <result property="enrollYear" column="enroll_year" jdbcType="TINYINT"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="typeName" column="typeName" jdbcType="VARCHAR"/>
             <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
             <result property="marjorName" column="marjor_name" jdbcType="VARCHAR"/>
             <result property="createName" column="create_name" jdbcType="TIMESTAMP"/>
@@ -19,7 +19,7 @@
 
     <sql id="Base_Column_List">
         id,course_id,enroll_year,
-        name,department_name,marjor_name,
+        typeName,department_name,marjor_name,
         create_name,update_time,del_flag,
         teacher_id
     </sql>

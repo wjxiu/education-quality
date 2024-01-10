@@ -1,4 +1,4 @@
-package com.github.wjxiu.DTO;
+package com.github.wjxiu.DTO.Req;
 
 import lombok.Data;
 

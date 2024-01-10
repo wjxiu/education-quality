@@ -16,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @RequiredArgsConstructor
-@Import({ CorsConfig.class, MyBatisConfigration.class})
 public class WebAutoConfiguration  implements WebMvcConfigurer {
    final TokenInterceptor tokenInterceptor;
     @Bean

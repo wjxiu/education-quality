@@ -7,7 +7,6 @@
     <resultMap id="BaseResultMap" type="com.github.wjxiu.DO.TeacherDO">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="realName" column="real_name" jdbcType="INTEGER"/>
-            <result property="teacherNo" column="teacher_no" jdbcType="INTEGER"/>
             <result property="phone" column="phone" jdbcType="VARCHAR"/>
             <result property="email" column="email" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -16,11 +15,61 @@
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="adminFlag" column="admin_flag" jdbcType="TINYINT"/>
     </resultMap>
-
-    <sql id="Base_Column_List">
-        id,real_name,teacher_no,
-        phone,email,create_time,
-        update_time,del_flag,password,
-        admin_flag
-    </sql>
+    <resultMap id="PageResultMap" type="com.github.wjxiu.DTO.Resp.TeacherPageResp">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="realName" column="real_name" jdbcType="INTEGER"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="adminFlag" column="admin_flag" jdbcType="TINYINT"/>
+        <collection property="courses" ofType="com.github.wjxiu.DO.CourseDO"  >
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="teacherId" column="id"/>
+            <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
+            <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+            <result property="majorName" column="major_name" jdbcType="VARCHAR"/>
+            <result property="startYear" column="start_year" jdbcType="INTEGER"/>
+            <result property="term" column="term" jdbcType="VARCHAR"/>
+            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
+        </collection>
+    </resultMap>
+    <select id="selectTeacherList"  resultMap="PageResultMap">
+        select
+        t.id ,
+        t.real_name,
+        t.phone,
+        t.email,
+        t.create_time,
+        t.update_time,
+        t.admin_flag,
+        c.course_name,
+        c.id as c_id,
+        c.department_name,
+        c.major_name,
+        c.start_year,
+        c.term
+        from teacher t
+        left join  course c on t.id = c.teacher_id
+        <where>
+            <if test="teacher.realName!=null and teacher.realName!=''">
+                and t.real_name like concat('%', #{teacher.realName}, '%')
+            </if>
+            <if test="teacher.departmentName!=null and teacher.departmentName!=''">
+                and c.department_name like concat('%', #{teacher.departmentName}, '%')
+            </if>
+            <if test="teacher.majorName!=null and teacher.majorName!=''">
+                and c.major_name like concat('%', #{teacher.majorName}, '%')
+            </if>
+            <if test="teacher.startYear!=null and teacher.startYear!=''">
+                and c.start_year= #{teacher.startYear}
+            </if>
+            <if test="teacher.term!=null ">
+                and c.term= #{teacher.term}
+            </if>
+            and t.del_flag=0
+        </where>
+    </select>
 </mapper>

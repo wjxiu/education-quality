@@ -4,8 +4,8 @@ package com.github.wjxiu.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.wjxiu.DO.StudentDO;
-import com.github.wjxiu.DTO.ChangePwdReq;
-import com.github.wjxiu.DTO.LoginResp;
+import com.github.wjxiu.DTO.Req.ChangePwdReq;
+import com.github.wjxiu.DTO.Resp.LoginResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.token.UserContext;
 import com.github.wjxiu.common.token.UserInfoDTO;
@@ -14,8 +14,10 @@ import com.github.wjxiu.service.StudentService;
 import com.github.wjxiu.utils.JWTUtil;
 import com.github.wjxiu.utils.PasswordUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * @author xiu
@@ -23,16 +25,19 @@ import org.springframework.util.StringUtils;
  * @createDate 2024-01-06 21:21:24
  */
 @Service
+@Slf4j
+@CrossOrigin
 @RequiredArgsConstructor
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
         implements StudentService {
     final StudentMapper studentMapper;
     @Override
     public LoginResp login(Integer id, String password) {
+        log.info("测试");
         StudentDO stu = getById(id);
         if (stu == null) throw new ClientException("没有这名用户");
-        if (!stu.getPassword().equals(password)) throw new ClientException("密码错误");
-        String token = JWTUtil.generateAccessToken(new UserInfoDTO(id, stu.getRealName(), null));
+        if (!PasswordUtil.verifyPassword(password,stu.getPassword())) throw new ClientException("密码错误");
+        String token = JWTUtil.generateAccessToken(new UserInfoDTO(id, stu.getRealName(),0, null));
         LoginResp loginResp = new LoginResp();
         loginResp.setId(id);
         loginResp.setName(stu.getRealName());

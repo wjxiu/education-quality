@@ -31,7 +31,7 @@ public final class JWTUtil {
     /**
      * 用户名 Key
      */
-    public static final String USER_NAME_KEY = "username";
+    public static final String TYPE ="type";
 
     /**
      * 用户真实名称 Key
@@ -47,11 +47,6 @@ public final class JWTUtil {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String ISS = "edu";
     public static final String SECRET = "SecretKey039245678901232039487623456783092349288901402967890140939827";
-
-    public static void main(String[] args) {
-        UserInfoDTO userInfoDTO = JWTUtil.parseJwtToken("Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MDA2NTA2NzUsImlzcyI6ImluZGV4MTIzMDYiLCJzdWIiOiJ7XCJyZWFsTmFtZVwiOlwi5b6Q5LiH6YeMXCIsXCJ1c2VySWRcIjpcIjE2ODMwMjU1NTIzNjQ1Njg1NzZcIixcInVzZXJuYW1lXCI6XCJhZG1pblwifSIsImV4cCI6MTczMjE4NjY3NX0.mfItxyvzOAqu6rGKMAdMfuxtXxOkZM6lX8Ofcvlgj1okRC1ukdgP9BSCWxrQr0FL0QEzY_h3Qu7Lx6_59Hj8Ig");
-        System.out.println(userInfoDTO);
-    }
     /**
      * 生成用户 Token
      *
@@ -61,6 +56,7 @@ public final class JWTUtil {
     public static String generateAccessToken(UserInfoDTO userInfo) {
         Map<String, Object> customerUserMap = new HashMap<>();
         customerUserMap.put(USER_ID_KEY, userInfo.getUserId());
+        customerUserMap.put(TYPE, userInfo.getType());
         customerUserMap.put(REAL_NAME_KEY, userInfo.getRealName());
         String jwtToken = Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, SECRET)
@@ -72,6 +68,7 @@ public final class JWTUtil {
         return TOKEN_PREFIX + jwtToken;
     }
 
+
     /**
      * 解析用户 Token
      *
@@ -80,12 +77,13 @@ public final class JWTUtil {
      */
     public static UserInfoDTO parseJwtToken(String jwtToken) {
         if (StringUtils.hasText(jwtToken)) {
-            String actualJwtToken = jwtToken.replace(TOKEN_PREFIX, "");
+            String actualJwtToken = jwtToken.substring(TOKEN_PREFIX.length());
             try {
                 Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(actualJwtToken).getBody();
                 Date expiration = claims.getExpiration();
                 if (expiration.after(new Date())) {
                     String subject = claims.getSubject();
+                    System.out.println(subject);
                     return JSON.parseObject(subject, UserInfoDTO.class);
                 }
             } catch (ExpiredJwtException ignored) {

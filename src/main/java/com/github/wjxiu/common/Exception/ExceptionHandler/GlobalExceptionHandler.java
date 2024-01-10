@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ValidationException;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = {AbstractException.class, ClientException.class})
     public Object handleValidatedException(HttpServletRequest request, AbstractException ex) {
+        log.info("GlobalExceptionHandler handleValidatedException");
         String errorMessage = ex.getErrorMessage();
         String exceptionStr = Optional.ofNullable(errorMessage)
                 .orElse("EMPTY");
@@ -39,17 +41,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {BindException.class, MethodArgumentNotValidException.class, ValidationException.class})
     public Object BindException(Exception e) {
         if (e instanceof MethodArgumentNotValidException ex0) {
-            return ex0.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, f -> {
+            String collect = ex0.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, f -> {
                 return Optional.ofNullable(f.getDefaultMessage()).orElse("参数校验失败");
-            }));
+            })).entrySet().stream().map(entry -> entry.getKey() + ": " + entry.getValue()).collect(Collectors.joining(";"));
+            return R.failure(collect,BaseErrorCode.CLIENT_ERROR.code());
         }
         if (e instanceof BindException ex) {
-            return ex.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, f -> {
+            String collect = ex.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, f -> {
                 return Optional.ofNullable(f.getDefaultMessage()).orElse("参数校验失败");
-            }));
+            })).entrySet().stream().map(entry -> entry.getKey() + ": " + entry.getValue()).collect(Collectors.joining(";"));
+            return R.failure(collect,BaseErrorCode.CLIENT_ERROR.code());
         }
         if (e instanceof ValidationException ex) {
-            return ex.getMessage();
+            return R.failure(e.getLocalizedMessage(),BaseErrorCode.CLIENT_ERROR.code());
         }
         return "unknown";
     }

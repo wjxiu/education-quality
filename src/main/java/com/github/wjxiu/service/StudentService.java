@@ -2,8 +2,8 @@ package com.github.wjxiu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.wjxiu.DO.StudentDO;
-import com.github.wjxiu.DTO.ChangePwdReq;
-import com.github.wjxiu.DTO.LoginResp;
+import com.github.wjxiu.DTO.Req.ChangePwdReq;
+import com.github.wjxiu.DTO.Resp.LoginResp;
 
 /**
 * @author xiu

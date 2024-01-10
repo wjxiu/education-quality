@@ -51,10 +51,10 @@ public class CourseDO implements Serializable {
     private Integer startYear;
 
     /**
-     * 上学期 0 下学期1
+     * 上学期  下学期 全年
      */
-    @TableField(value = "term")
-    private Integer term;
+    @TableField(value = "Term")
+    private String term;
 
     /**
      *

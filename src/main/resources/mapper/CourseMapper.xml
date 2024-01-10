@@ -11,7 +11,7 @@
             <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
             <result property="majorName" column="major_name" jdbcType="VARCHAR"/>
             <result property="startYear" column="start_year" jdbcType="INTEGER"/>
-            <result property="term" column="term" jdbcType="INTEGER"/>
+            <result property="term" column="term" jdbcType="VARCHAR"/>
             <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
 
@@ -20,4 +20,10 @@
         department_name,major_name,start_year,
         term,del_flag
     </sql>
+    <select id="selectAllByTeacherId" resultType="com.github.wjxiu.DO.CourseDO">
+        select *
+        from course
+        where teacher_id=#{teacherId}
+    </select>
+
 </mapper>

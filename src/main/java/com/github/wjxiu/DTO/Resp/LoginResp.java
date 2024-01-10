@@ -1,4 +1,4 @@
-package com.github.wjxiu.DTO;
+package com.github.wjxiu.DTO.Resp;
 
 import lombok.Data;
 
@@ -8,8 +8,8 @@ import lombok.Data;
  */
 @Data
 public class LoginResp {
-    int type;//0管理员,1教师，2学生
-    int id;
+    Integer type;//0管理员,1教师，2学生
+    Integer id;
     String name;
     String token;
 }

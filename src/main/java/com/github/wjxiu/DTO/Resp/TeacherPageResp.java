@@ -1,24 +1,21 @@
-package com.github.wjxiu.DO;
+package com.github.wjxiu.DTO.Resp;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.github.wjxiu.DO.CourseDO;
 import lombok.Data;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
- * 教师表
- * @TableName teacher
+ * @author xiu
+ * @create 2024-01-09 21:17
  */
-@TableName(value ="teacher")
 @Data
-public class TeacherDO implements Serializable {
-    /**
-     *是唯一标识也是工号
-     */
-    @TableId(value = "id",type = IdType.AUTO)
-    private Integer id;
-
+public class TeacherPageResp {
+    @TableField(value = "id")
+    private String id;
     /**
      *
      */
@@ -66,6 +63,10 @@ public class TeacherDO implements Serializable {
     @TableField(value = "admin_flag")
     private Integer adminFlag;
 
+    /**
+     * 教授的课程
+     */
+    private List<CourseDO> courses=new ArrayList<>();
     @TableField(exist = false)
-    private static final long serialVersionUID = 1677L;
+    private static final long serialVersionUID = 16707L;
 }

@@ -2,6 +2,7 @@ package com.github.wjxiu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.wjxiu.DO.CourseDO;
+import org.apache.ibatis.annotations.Param;
 
 /**
 * @author xiu
@@ -10,7 +11,7 @@ import com.github.wjxiu.DO.CourseDO;
 * @Entity generator.DO.Course
 */
 public interface CourseMapper extends BaseMapper<CourseDO> {
-
+    public CourseDO selectAllByTeacherId(@Param("teacherId") Integer teacherId);
 }
 
 

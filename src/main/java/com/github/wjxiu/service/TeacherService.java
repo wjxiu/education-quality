@@ -1,9 +1,12 @@
 package com.github.wjxiu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.TeacherDO;
-import com.github.wjxiu.DTO.ChangePwdReq;
-import com.github.wjxiu.DTO.LoginResp;
+import com.github.wjxiu.DTO.Req.ChangePwdReq;
+import com.github.wjxiu.DTO.Req.TeacherPageReq;
+import com.github.wjxiu.DTO.Resp.LoginResp;
+import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 
 /**
 * @author xiu
@@ -17,4 +20,8 @@ public interface TeacherService extends IService<TeacherDO> {
     Integer register(TeacherDO teacherDO);
 
     Boolean changePwd(ChangePwdReq changePwdReq);
+
+
+    PageInfo<TeacherPageResp> selectTeacherList(TeacherPageReq teacher, Integer pageNum, Integer pageSize);
+
 }

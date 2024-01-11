@@ -2,6 +2,10 @@ package com.github.wjxiu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.wjxiu.DO.EvalDO;
+import com.github.wjxiu.DTO.Req.EvalSubmitReq;
+import com.github.wjxiu.DTO.Resp.EvalRateReq;
+
+import java.util.List;
 
 /**
 * @author xiu
@@ -10,4 +14,7 @@ import com.github.wjxiu.DO.EvalDO;
 */
 public interface EvalService extends IService<EvalDO> {
 
+    List<EvalRateReq> getTeacherEvalByStuidAndTeacherId(Integer stuId, Integer teacherId);
+
+    Boolean submit(EvalSubmitReq evalRateReq);
 }

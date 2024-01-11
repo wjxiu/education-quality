@@ -9,8 +9,18 @@
             <result property="evalItem" column="eval_item" jdbcType="VARCHAR"/>
             <result property="explanation" column="explanation" jdbcType="VARCHAR"/>
     </resultMap>
+    <select id="getTeacherEvalByStuidAndTeacherId" resultType="com.github.wjxiu.DTO.Resp.EvalRateReq">
+        SELECT ev.id,
+               stev.stu_id,
+               ev.eval_item,
+               stev.rate,
+               stev.update_time,
+               stev.create_time
+        FROM eval ev
+                 LEFT JOIN student_eval stev
+                           ON ev.id = stev.eval_id
+                               AND stev.teacher_id = #{teacherId}
+                               AND stev.stu_id = #{stuId}
 
-    <sql id="Base_Column_List">
-        id,eval_item,explanation
-    </sql>
+    </select>
 </mapper>

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.wjxiu.DO.StudentDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
+import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.DTO.Resp.LoginResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.token.UserContext;
@@ -18,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.util.List;
 
 /**
  * @author xiu
@@ -65,6 +68,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
         String s = PasswordUtil.hashPassword(changePwdReq.getNewPasswd());
         studentDO.setPassword(s);
         return  studentMapper.update(studentDO,new LambdaQueryWrapper<StudentDO>().eq(StudentDO::getId,userId))>0;
+    }
+
+    @Override
+    public List<EvalRateResp> getAllTeacher() {
+        Integer userId = UserContext.getUserId();
+        return studentMapper.getAllTeacher(userId);
     }
 }
 

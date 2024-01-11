@@ -23,4 +23,10 @@
         email,update_time,create_time,
         del_flag
     </sql>
+    <select id="getAllTeacher" resultType="com.github.wjxiu.DTO.Resp.EvalRateResp">
+        select relation.*
+        from  student_course_class_teacher relation
+        where relation.student_id=#{studentId}
+        and relation.del_flag=0 ;
+    </select>
 </mapper>

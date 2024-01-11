@@ -21,12 +21,6 @@ public class CourseDO implements Serializable {
     private Integer id;
 
     /**
-     * 教这门课的教师id
-     */
-    @TableField(value = "teacher_id")
-    private Integer teacherId;
-
-    /**
      * 课程名字
      */
     @TableField(value = "course_name")

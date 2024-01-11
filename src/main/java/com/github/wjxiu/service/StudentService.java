@@ -3,7 +3,10 @@ package com.github.wjxiu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.wjxiu.DO.StudentDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
+import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.DTO.Resp.LoginResp;
+
+import java.util.List;
 
 /**
 * @author xiu
@@ -17,4 +20,6 @@ public interface StudentService extends IService<StudentDO> {
     Integer register(StudentDO studentDO);
 
     Boolean changePwd(ChangePwdReq changePwdReq);
+
+    List<EvalRateResp> getAllTeacher();
 }

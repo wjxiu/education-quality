@@ -3,6 +3,7 @@ package com.github.wjxiu.controller;
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.StudentDO;
 import com.github.wjxiu.DO.StudentDO;
+import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.TeacherPageReq;
 import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
@@ -26,6 +27,10 @@ public class StudentController {
     @PostMapping("/list")
     public PageInfo<TeacherPageResp> list(@RequestBody TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
        return null;
+    }
+    @GetMapping("/getallteacher")
+    public R getAllTeacher(){
+      return R.success(studentService.getAllTeacher());
     }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){

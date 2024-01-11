@@ -46,10 +46,10 @@ public class EvalController {
         EvalDO EvalDO = evalService.getById(id);
         return R.success(EvalDO);
     }
-    @PostMapping("submit")
+    @PostMapping("/submit")
     public R submit(EvalSubmitReq submitReq){
        Boolean res= evalService.submit(submitReq);
-        return null;
+        return R.success(res);
     }
     @PostMapping
     public R save(@Validated @RequestBody EvalDO EvalDO){

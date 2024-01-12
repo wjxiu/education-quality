@@ -45,14 +45,14 @@
         t.create_time,
         t.update_time,
         t.admin_flag,
-        c.course_name,
+#         c.course_name,
         c.id as c_id,
         c.department_name,
         c.major_name,
-        c.start_year,
-        c.term
+#         c.start_year,
+#         c.term
         from teacher t
-        left join  course c on t.id = c.teacher_id
+        left join  stu_class c on t.id = c.teacher_id
         <where>
             <if test="teacher!=null">
                 <if test="teacher.realName!=null and teacher.realName!='' ">
@@ -67,12 +67,12 @@
                 <if test="teacher.majorName!=null and teacher.majorName!=''">
                     and c.major_name like concat('%', #{teacher.majorName}, '%')
                 </if>
-                <if test="teacher.startYear!=null and teacher.startYear!=''">
-                    and c.start_year= #{teacher.startYear}
-                </if>
-                <if test="teacher.term!=null ">
-                    and c.term= #{teacher.term}
-                </if>
+<!--                <if test="teacher.startYear!=null and teacher.startYear!=''">-->
+<!--                    and c.start_year= #{teacher.startYear}-->
+<!--                </if>-->
+<!--                <if test="teacher.term!=null ">-->
+<!--                    and c.term= #{teacher.term}-->
+<!--                </if>-->
             </if>
             and t.del_flag=0
         </where>

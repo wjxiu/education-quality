@@ -2,6 +2,7 @@ package com.github.wjxiu.DO;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,12 +26,6 @@ public class StuClassDO implements Serializable {
      */
     @TableField(value = "course_id")
     private Integer courseId;
-
-    /**
-     * 入学年方
-     */
-    @TableField(value = "enroll_year")
-    private Integer enrollYear;
 
     /**
      * 班级名称
@@ -65,6 +60,7 @@ public class StuClassDO implements Serializable {
     /**
      * 1 已删除 0未删除
      */
+    @TableLogic
     @TableField(value = "del_flag")
     private Integer delFlag;
 

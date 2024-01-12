@@ -22,9 +22,12 @@ import java.util.List;
 @RequestMapping("/department")
 public class DepartmentController {
     final DepartmentService departmentService;
-    @PostMapping("/list")
-    public PageInfo<TeacherPageResp> list(@RequestBody TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
-        return null;
+    @GetMapping("/list")
+    public R<PageInfo<DepartmentDO>> list(@RequestParam(value = "id",required = false) Integer id,
+                                             @RequestParam(value = "name",required = false)String name,
+                                             @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+                                             @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize) {
+        return R.success(new PageInfo<>(departmentService.pagelist(id,name,pageNum,pageSize)));
     }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){

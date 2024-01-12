@@ -1,9 +1,7 @@
 package com.github.wjxiu.DO;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import lombok.Data;
 
@@ -53,6 +51,7 @@ public class CourseDO implements Serializable {
     /**
      *
      */
+    @TableLogic
     @TableField(value = "del_flag")
     private Integer delFlag;
 

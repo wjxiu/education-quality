@@ -9,8 +9,21 @@
             <result property="evalItem" column="eval_item" jdbcType="VARCHAR"/>
             <result property="explanation" column="explanation" jdbcType="VARCHAR"/>
     </resultMap>
+    <select id="pagelist" resultType="com.github.wjxiu.DO.EvalDO">
+        select *
+        from eval e
+        <where>
+            <if test="id!=null ">
+             and   e.id =#{id}
+            </if>
+            <if test="evalItemName!=null and evalItemName!=''">
+              and  e.eval_item like concat('%',#{evalItemName},'%')
+            </if>
+        </where>
+    </select>
     <select id="getTeacherEvalByStuidAndTeacherId" resultType="com.github.wjxiu.DTO.Resp.EvalRateReq">
-        SELECT ev.id,
+        SELECT ev.id as evalId,
+               stev.id,
                stev.stu_id,
                ev.eval_item,
                stev.rate,

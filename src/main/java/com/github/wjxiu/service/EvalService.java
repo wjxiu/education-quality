@@ -16,5 +16,7 @@ public interface EvalService extends IService<EvalDO> {
 
     List<EvalRateReq> getTeacherEvalByStuidAndTeacherId(Integer stuId, Integer teacherId);
 
-    Boolean submit(EvalSubmitReq evalRateReq);
+    Boolean submit(EvalSubmitReq list);
+
+    List<EvalDO> list(String evalItemName, Integer id,Integer pageNum, Integer pageSize);
 }

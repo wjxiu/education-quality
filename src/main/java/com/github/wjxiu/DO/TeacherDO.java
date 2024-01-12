@@ -51,6 +51,7 @@ public class TeacherDO implements Serializable {
     /**
      * 是否删除 1为已经删除，0未删除
      */
+    @TableLogic
     @TableField(value = "del_flag")
     private Integer delFlag;
 

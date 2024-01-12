@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class EvalRateReq {
     Integer id;
     Integer stuId;
-
+    Integer evalId;
     Integer rate;
     LocalDateTime updateTime;
     LocalDateTime createTime;

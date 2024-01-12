@@ -16,6 +16,10 @@ import java.util.List;
 public interface EvalMapper extends BaseMapper<EvalDO> {
 
     List<EvalRateReq> getTeacherEvalByStuidAndTeacherId(@Param("stuId") Integer stuId, @Param("teacherId") Integer teacherId);
+
+    List<EvalDO> pagelist(@Param("evalItemName") String evalItemName,
+                          @Param("id") Integer id,
+                          @Param("pageNum") Integer pageNum,@Param("pageSize") Integer pageSize);
 }
 
 

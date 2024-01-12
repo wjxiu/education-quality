@@ -1,6 +1,9 @@
 package com.github.wjxiu.DTO.Req;
 
+import com.github.wjxiu.DTO.EvalSubmitItem;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * 提交评价的请求体
@@ -9,11 +12,9 @@ import lombok.Data;
  */
 @Data
 public class EvalSubmitReq {
-    Integer id;
     Integer stuId;
-    Integer evalItemId;
-    Integer teacherId;
     //班级id
-    Integer rate;
     Integer stuClassId;
+    List<EvalSubmitItem> list;
+    Integer teacherId;
 }

@@ -3,14 +3,12 @@ package com.github.wjxiu.controller;
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.EvalDO;
 import com.github.wjxiu.DTO.Req.EvalSubmitReq;
-import com.github.wjxiu.DTO.Req.TeacherPageReq;
-import com.github.wjxiu.DTO.Resp.EvalRateReq;
-import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.common.token.UserContext;
 import com.github.wjxiu.service.EvalService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +20,15 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/eval")
 public class EvalController {
     final EvalService evalService;
     final
-    @PostMapping("/list")
-    public PageInfo<TeacherPageResp> list(@RequestBody TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
-        return null;
+    @GetMapping("/list")
+    public R<PageInfo<EvalDO>> list(String evalItem,Integer id, Integer pageNum, Integer pageSize) {
+      List<EvalDO> list=  evalService.list(evalItem, id, pageNum, pageSize);
+        return R.success(new PageInfo<EvalDO>(list));
     }
 
     /**
@@ -47,8 +47,8 @@ public class EvalController {
         return R.success(EvalDO);
     }
     @PostMapping("/submit")
-    public R submit(EvalSubmitReq submitReq){
-       Boolean res= evalService.submit(submitReq);
+    public R submit(@RequestBody EvalSubmitReq data){
+       Boolean res= evalService.submit(data);
         return R.success(res);
     }
     @PostMapping

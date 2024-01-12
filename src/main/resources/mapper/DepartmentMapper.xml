@@ -25,6 +25,7 @@
         <if test="name !=null and name!=''">
             and name like concat('%', #{name} ,'%')
         </if>
+            and del_flag=0
         </where>
     </select>
 </mapper>

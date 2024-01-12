@@ -27,7 +27,6 @@
             <result property="adminFlag" column="admin_flag" jdbcType="TINYINT"/>
         <collection property="courses" ofType="com.github.wjxiu.DO.CourseDO"  >
             <id property="id" column="c_id" jdbcType="INTEGER"/>
-            <result property="teacherId" column="id"/>
             <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
             <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
             <result property="majorName" column="major_name" jdbcType="VARCHAR"/>

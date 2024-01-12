@@ -42,8 +42,8 @@ public class StuClassDO implements Serializable {
     /**
      * 关联的专业名字
      */
-    @TableField(value = "marjor_name")
-    private String marjorName;
+    @TableField(value = "major_name")
+    private String majorName;
 
     /**
      * 创建时间

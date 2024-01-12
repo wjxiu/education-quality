@@ -3,6 +3,8 @@ package com.github.wjxiu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.wjxiu.DO.MajorDO;
 
+import java.util.List;
+
 /**
 * @author xiu
 * @description 针对表【major】的数据库操作Service
@@ -10,4 +12,5 @@ import com.github.wjxiu.DO.MajorDO;
 */
 public interface MajorService extends IService<MajorDO> {
 
+    List< MajorDO> pageList(MajorDO majorDO, Integer pageNum, Integer pageSize);
 }

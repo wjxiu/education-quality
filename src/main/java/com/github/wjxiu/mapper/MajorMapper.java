@@ -2,6 +2,9 @@ package com.github.wjxiu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.wjxiu.DO.MajorDO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
 * @author xiu
@@ -11,6 +14,9 @@ import com.github.wjxiu.DO.MajorDO;
 */
 public interface MajorMapper extends BaseMapper<MajorDO> {
 
+    List<MajorDO> pageList(@Param("majorDO") MajorDO majorDO,
+                           @Param("pageNum") Integer pageNum,
+                           @Param("pageSize") Integer pageSize);
 }
 
 

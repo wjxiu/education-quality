@@ -40,8 +40,8 @@ public class MajorDO implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(value = "create_name")
-    private Date createName;
+    @TableField(value = "create_time")
+    private Date createTime;
 
     /**
      * 修改时间

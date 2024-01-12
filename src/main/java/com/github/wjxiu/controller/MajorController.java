@@ -2,8 +2,6 @@ package com.github.wjxiu.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.MajorDO;
-import com.github.wjxiu.DTO.Req.TeacherPageReq;
-import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.service.MajorService;
@@ -22,9 +20,11 @@ import java.util.List;
 @RequestMapping("/major")
 public class MajorController {
     final MajorService majorService;
-    @PostMapping("/list")
-    public PageInfo<TeacherPageResp> list(@RequestBody TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
-        return null;
+    @GetMapping("/list")
+    public R<PageInfo<MajorDO>> list( MajorDO majorDO,
+                                             @RequestParam(defaultValue = "1") Integer pageNum,
+                                             @RequestParam(defaultValue = "10") Integer pageSize) {
+        return R.success(new PageInfo<>(majorService.pageList(majorDO,pageNum,pageSize)));
     }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){
@@ -40,6 +40,7 @@ public class MajorController {
     @PutMapping
     public R update(@Validated @RequestBody MajorDO MajorDO){
         boolean save = majorService.updateById(MajorDO);
+
         if (save)return R.success();
         throw new ClientException("修改专业失败");
     }

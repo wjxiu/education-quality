@@ -3,8 +3,10 @@ package com.github.wjxiu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.StudentDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
+import com.github.wjxiu.DTO.Req.StudentPageReq;
 import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.DTO.Resp.LoginResp;
 import com.github.wjxiu.common.Exception.ClientException;
@@ -16,6 +18,7 @@ import com.github.wjxiu.utils.JWTUtil;
 import com.github.wjxiu.utils.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -74,6 +77,33 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
     public List<EvalRateResp> getAllTeacher() {
         Integer userId = UserContext.getUserId();
         return studentMapper.getAllTeacher(userId);
+    }
+
+    @Override
+    public PageInfo<StudentDO> pageList(StudentPageReq studentPageReq, Integer pageNum, Integer pageSize) {
+        return new PageInfo<StudentDO>(studentMapper.pageList( studentPageReq,  pageNum,  pageSize));
+    }
+
+    @Override
+    public boolean updateById(StudentDO entity) {
+        String password = entity.getPassword();
+        StudentDO studentDO = getById(entity.getId());
+        if (password.isEmpty()){
+            entity.setPassword(studentDO.getPassword());
+            return super.updateById(entity);
+        }
+        String encrptPasswd = PasswordUtil.hashPassword(password);
+        entity.setPassword(encrptPasswd);
+      return super.updateById(entity);
+    }
+
+    @Override
+    public boolean save(StudentDO entity) {
+        String password = entity.getPassword();
+        if (password.isEmpty()) throw new ClientException("密码为空");
+        String encrptPasswd = PasswordUtil.hashPassword(password);
+        entity.setPassword(encrptPasswd);
+        return super.save(entity);
     }
 }
 

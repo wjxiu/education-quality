@@ -1,8 +1,10 @@
 package com.github.wjxiu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.StudentDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
+import com.github.wjxiu.DTO.Req.StudentPageReq;
 import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.DTO.Resp.LoginResp;
 
@@ -22,4 +24,7 @@ public interface StudentService extends IService<StudentDO> {
     Boolean changePwd(ChangePwdReq changePwdReq);
 
     List<EvalRateResp> getAllTeacher();
+
+    PageInfo<StudentDO> pageList(StudentPageReq studentDO, Integer pageNum, Integer pageSize);
+    boolean updateById(StudentDO entity) ;
 }

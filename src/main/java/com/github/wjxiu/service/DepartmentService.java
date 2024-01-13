@@ -13,4 +13,6 @@ import java.util.List;
 public interface DepartmentService extends IService<DepartmentDO> {
 
     List<DepartmentDO> pagelist(Integer id, String name, Integer pageNum, Integer pageSize);
+
+    List<String> getallName(String majorName);
 }

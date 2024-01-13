@@ -18,6 +18,8 @@ import java.util.List;
  */
 public interface TeacherMapper extends BaseMapper<TeacherDO> {
 
+   //todo 改成单表
+   //fixme 这里执行会报错
    public List<TeacherPageResp> selectTeacherList(@Param("teacher") TeacherPageReq teacher,
                                                   @Param("pageNum")Integer pageNum,
                                                   @Param("pageSize") Integer pageSize);

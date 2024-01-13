@@ -1,6 +1,8 @@
 package com.github.wjxiu.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
+import com.github.wjxiu.DO.DepartmentDO;
 import com.github.wjxiu.DO.MajorDO;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
@@ -25,6 +27,12 @@ public class MajorController {
                                              @RequestParam(defaultValue = "1") Integer pageNum,
                                              @RequestParam(defaultValue = "10") Integer pageSize) {
         return R.success(new PageInfo<>(majorService.pageList(majorDO,pageNum,pageSize)));
+    }
+
+    @GetMapping(value = {"/allName/{departmentName}","/allName"})
+    public R getMajorNameByDepartmentName(@PathVariable(value = "departmentName",required = false) String departmentName){
+        List<String> list = majorService.list(new LambdaQueryWrapper<MajorDO>().select(MajorDO::getMajorName).eq(departmentName!=null&& !departmentName.isEmpty(),MajorDO::getDepartmentName,departmentName)).stream().map(MajorDO::getMajorName).toList();
+        return R.success(list);
     }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){

@@ -45,10 +45,10 @@ public class MajorController {
         if (save)return R.success(MajorDO);
         throw new ClientException("新增专业失败");
     }
+    //todo 修改关联的地方
     @PutMapping
     public R update(@Validated @RequestBody MajorDO MajorDO){
         boolean save = majorService.updateById(MajorDO);
-
         if (save)return R.success();
         throw new ClientException("修改专业失败");
     }

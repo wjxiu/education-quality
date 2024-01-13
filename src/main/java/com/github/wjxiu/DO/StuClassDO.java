@@ -1,24 +1,24 @@
 package com.github.wjxiu.DO;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ * 这个不是关系表，为了避开java关键字
  * @TableName stu_class
  */
 @TableName(value ="stu_class")
 @Data
 public class StuClassDO implements Serializable {
     /**
-     *
+     * 
      */
-    @TableId(value = "id")
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -26,6 +26,12 @@ public class StuClassDO implements Serializable {
      */
     @TableField(value = "course_id")
     private Integer courseId;
+
+    /**
+     * 教师id
+     */
+    @TableField(value = "teacher_id")
+    private Integer teacherId;
 
     /**
      * 班级名称
@@ -60,16 +66,9 @@ public class StuClassDO implements Serializable {
     /**
      * 1 已删除 0未删除
      */
-    @TableLogic
     @TableField(value = "del_flag")
     private Integer delFlag;
 
-    /**
-     * 教师id
-     */
-    @TableField(value = "teacher_id")
-    private Integer teacherId;
-
     @TableField(exist = false)
-    private static final long serialVersionUID = 134L;
+    private static final long serialVersionUID = 1L;
 }

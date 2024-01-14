@@ -1,7 +1,9 @@
 package com.github.wjxiu.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.CourseDO;
+import com.github.wjxiu.DO.MajorDO;
 import com.github.wjxiu.DTO.Req.TeacherPageReq;
 import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
@@ -26,6 +28,12 @@ public class CourseController {
     public PageInfo<TeacherPageResp> list(@RequestBody TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
         return null;
     }
+    @GetMapping(value = {"/allName/{departmentName}","/allName"})
+    public R getCourseNameByDepartmentName(@PathVariable(value = "departmentName",required = false) String departmentName){
+        List<String> list = courseService.list(new LambdaQueryWrapper<CourseDO>().select(CourseDO::getCourseName).eq(departmentName!=null&& !departmentName.isEmpty(),CourseDO::getDepartmentName,departmentName)).stream().map(CourseDO::getCourseName).toList();
+        return R.success(list);
+    }
+
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){
         CourseDO CourseDO = courseService.getById(id);

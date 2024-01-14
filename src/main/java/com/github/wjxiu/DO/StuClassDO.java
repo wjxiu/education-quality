@@ -32,7 +32,11 @@ public class StuClassDO implements Serializable {
      */
     @TableField(value = "teacher_id")
     private Integer teacherId;
-
+    /**
+     * 教师名
+     */
+    @TableField(value = "teacher_name")
+    private String teacherName;
     /**
      * 班级名称
      */
@@ -50,6 +54,11 @@ public class StuClassDO implements Serializable {
      */
     @TableField(value = "major_name")
     private String majorName;
+    /**
+     * 关联的专业名字
+     */
+    @TableField(value = "course_name")
+    private String courseName;
 
     /**
      * 创建时间

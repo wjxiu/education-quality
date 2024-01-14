@@ -13,4 +13,5 @@ import java.util.List;
 public interface StuClassService extends IService<StuClassDO> {
 
     List< StuClassDO> pageList(StuClassDO stuClassDO, Integer pageNum, Integer pageSize);
+    boolean updateById(StuClassDO entity) ;
 }

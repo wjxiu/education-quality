@@ -3,7 +3,6 @@ package com.github.wjxiu.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.wjxiu.DO.StudentEvalDO;
 import com.github.wjxiu.mapper.StudentMapper;
-import com.github.wjxiu.service.StudentCourseClassTeacherService;
 import com.github.wjxiu.service.StudentEvalService;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentEvalServiceImpl extends ServiceImpl<StudentMapper.StudentEvalMapper, StudentEvalDO>
     implements StudentEvalService {
+
 
 }
 

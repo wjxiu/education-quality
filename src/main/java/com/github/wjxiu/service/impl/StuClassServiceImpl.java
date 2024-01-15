@@ -41,16 +41,20 @@ public class StuClassServiceImpl extends ServiceImpl<StuClassMapper, StuClassDO>
     public boolean updateById(StuClassDO entity) {
         Integer teacherId = entity.getTeacherId();
         TeacherDO teacherDO = teacherService.getById(teacherId);
+        if (teacherDO==null)throw new ClientException("没有该教师");
         entity.setTeacherName(teacherDO.getRealName());
         List<StudentCourseClassTeacherDO> list = studentCourseClassTeacherService.list(new LambdaQueryWrapper<StudentCourseClassTeacherDO>().eq(StudentCourseClassTeacherDO::getStuClassId, entity.getId()));
         Boolean b = courseService.courseNameisExit(entity.getCourseName());
+        if (!b)throw new ClientException("没有该课程");
         for (StudentCourseClassTeacherDO studentCourseClassTeacherDO : list) {
-            studentCourseClassTeacherDO.setStuClassName(entity.getName());
             studentCourseClassTeacherDO.setTeacherId(teacherDO.getId());
             studentCourseClassTeacherDO.setTeacherName(teacherDO.getRealName());
+
             studentCourseClassTeacherDO.setCourseId(entity.getCourseId());
+            studentCourseClassTeacherDO.setCourseName(entity.getCourseName());
+
+            studentCourseClassTeacherDO.setStuClassName(entity.getName());
         }
-        if (!b)throw new ClientException("没有该课程");
        return  super.updateById(entity);
     }
 }

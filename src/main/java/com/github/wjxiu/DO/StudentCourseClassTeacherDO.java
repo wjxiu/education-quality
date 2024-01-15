@@ -3,6 +3,8 @@ package com.github.wjxiu.DO;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -65,6 +67,17 @@ public class StudentCourseClassTeacherDO implements Serializable {
      */
     @TableField(value = "teacher_name")
     private String teacherName;
+    /**
+     *
+     */
+    @TableField(value = "create_time",fill =FieldFill.INSERT )
+    private Date createTime;
+
+    /**
+     *
+     */
+    @TableField(value = "update_time",fill =FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
     /**
      * 

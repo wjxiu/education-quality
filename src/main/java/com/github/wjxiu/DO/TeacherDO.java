@@ -68,5 +68,5 @@ public class TeacherDO implements Serializable {
     private Integer adminFlag;
 
     @TableField(exist = false)
-    private static final long serialVersionUID = 1677L;
+    private static final long serialVersionUID = 18677L;
 }

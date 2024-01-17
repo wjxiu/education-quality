@@ -1,6 +1,5 @@
 package com.github.wjxiu.service;
 
-import com.github.wjxiu.DTO.Resp.Statistics.BestAndWorstRateResp;
 import com.github.wjxiu.DTO.Resp.Statistics.ClassRateSituationResp;
 import com.github.wjxiu.DTO.Resp.Statistics.TeacherRateSituationResp;
 
@@ -21,5 +20,4 @@ public interface StatisticsService {
      */
     List<ClassRateSituationResp> getStuClassRateSituation(List<Integer> stuClassIds);
 
-    List<BestAndWorstRateResp> bestAndWorstRate(List<Integer> stuClassId);
 }

@@ -24,15 +24,7 @@ public interface StudentMapper extends BaseMapper<StudentDO> {
                                  @Param("pageNum")Integer pageNum,
                                  @Param("pageSize") Integer pageSize);
 
-    /**
-    * @author xiu
-    * @description 针对表【student_eval】的数据库操作Mapper
-    * @createDate 2024-01-11 21:56:30
-    * @Entity com.github.wjxiu.DO.StudentEvalDO
-    */
-    interface StudentEvalMapper extends BaseMapper<StudentEvalDO> {
 
-    }
 }
 
 

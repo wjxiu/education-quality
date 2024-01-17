@@ -3,7 +3,11 @@ package com.github.wjxiu.DO;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
 
 /**
@@ -55,18 +59,11 @@ public class StudentDO implements Serializable {
     @TableField(value = "email")
     private String email;
 
-    /**
-     *
-     */
-    @TableField(value = "update_time")
-    private Date updateTime;
-
-    /**
-     *
-     */
-    @TableField(value = "create_time")
-    private Date createTime;
-
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
     /**
      *
      */

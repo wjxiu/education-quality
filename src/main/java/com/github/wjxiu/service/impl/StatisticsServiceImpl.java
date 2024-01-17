@@ -113,9 +113,4 @@ public class StatisticsServiceImpl implements StatisticsService {
         return res;
     }
 
-    @Override
-    public List<BestAndWorstRateResp> bestAndWorstRate(List<Integer> stuClassId) {
-
-        return null;
-    }
 }

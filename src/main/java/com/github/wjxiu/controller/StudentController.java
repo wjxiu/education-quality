@@ -2,11 +2,7 @@ package com.github.wjxiu.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.StudentDO;
-import com.github.wjxiu.DO.StudentDO;
-import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.StudentPageReq;
-import com.github.wjxiu.DTO.Req.TeacherPageReq;
-import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.service.StudentService;
@@ -32,10 +28,21 @@ public class StudentController {
         PageInfo<StudentDO> page=  studentService.pageList(studentDO,pageNum,pageSize);
        return R.success(page);
     }
-    @GetMapping("/getallteacher")
-    public R getAllTeacher(){
-      return R.success(studentService.getAllTeacher());
+//    @GetMapping("/myrate")
+//    public R myrate(){
+//        return getStudentRate(UserContext.getUserId());
+//    }
+
+    /**
+     * 获取自己的教师
+     * @return
+     */
+    @GetMapping({"/getStuTeacher","/getStuTeacher/{stuId}"})
+    public R getAllTeacher(@PathVariable(required = false)Integer stuId){
+      return R.success(studentService.getStuTeacherByStuId(stuId));
     }
+
+
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){
         StudentDO StudentDO = studentService.getById(id);

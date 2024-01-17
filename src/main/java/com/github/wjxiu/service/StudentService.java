@@ -23,8 +23,13 @@ public interface StudentService extends IService<StudentDO> {
 
     Boolean changePwd(ChangePwdReq changePwdReq);
 
-    List<EvalRateResp> getAllTeacher();
+    List<EvalRateResp> getStuTeacherByStuId(Integer stuId);
+
+
 
     PageInfo<StudentDO> pageList(StudentPageReq studentDO, Integer pageNum, Integer pageSize);
     boolean updateById(StudentDO entity) ;
+
+
+
 }

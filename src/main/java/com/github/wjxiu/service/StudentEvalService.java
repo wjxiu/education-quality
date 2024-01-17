@@ -6,9 +6,10 @@ package com.github.wjxiu.service;
  */
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
 import com.github.wjxiu.DO.StudentEvalDO;
-import com.github.wjxiu.DO.StuClassDO;
+import com.github.wjxiu.DTO.Resp.EvalRateResp;
+
+import java.util.List;
 
 /**
  * @author xiu
@@ -16,4 +17,6 @@ import com.github.wjxiu.DO.StuClassDO;
  * @createDate 2024-01-11 21:56:30
  */
 public interface StudentEvalService extends IService<StudentEvalDO> {
+    List<EvalRateResp> getStudentRatePage(EvalRateResp resp,Integer pageNum,Integer pageSize);
+
 }

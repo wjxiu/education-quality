@@ -21,7 +21,7 @@
             </if>
         </where>
     </select>
-    <select id="getTeacherEvalByStuidAndTeacherId" resultType="com.github.wjxiu.DTO.Resp.EvalRateReq">
+    <select id="getTeacherEvalByStuidAndTeacherId" resultType="com.github.wjxiu.DTO.Resp.EvalRateResp">
         SELECT ev.id as evalId,
                stev.id,
                stev.stu_id,
@@ -34,6 +34,9 @@
                            ON ev.id = stev.eval_id
                                AND stev.teacher_id = #{teacherId}
                                AND stev.stu_id = #{stuId}
+
+    </select>
+    <select id="stuEvalList" resultType="com.github.wjxiu.DTO.Resp.EvalRateResp">
 
     </select>
 </mapper>

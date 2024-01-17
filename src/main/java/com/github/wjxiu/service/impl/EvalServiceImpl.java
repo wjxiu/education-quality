@@ -5,7 +5,7 @@ import com.github.wjxiu.DO.EvalDO;
 import com.github.wjxiu.DO.StudentEvalDO;
 import com.github.wjxiu.DTO.EvalSubmitItem;
 import com.github.wjxiu.DTO.Req.EvalSubmitReq;
-import com.github.wjxiu.DTO.Resp.EvalRateReq;
+import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.common.token.UserContext;
 import com.github.wjxiu.mapper.StudentCourseClassTeacherMapper;
 import com.github.wjxiu.service.EvalService;
@@ -32,17 +32,16 @@ public class EvalServiceImpl extends ServiceImpl<EvalMapper, EvalDO> implements 
     final EvalMapper mapper;
 
     @Override
-    public List<EvalRateReq> getTeacherEvalByStuidAndTeacherId(Integer stuId, Integer teacherId) {
+    public List<EvalRateResp> getTeacherEvalByStuidAndTeacherId(Integer stuId, Integer teacherId) {
         return mapper.getTeacherEvalByStuidAndTeacherId(stuId, teacherId);
     }
 
     @Override
     public Boolean submit( EvalSubmitReq submitReq) {
-
         ArrayList<StudentEvalDO> list = new ArrayList<>();
         for (EvalSubmitItem item : submitReq.getList()) {
             StudentEvalDO studentEvalDO = new StudentEvalDO();
-            //todo 这里没有传入评价的Id
+            studentEvalDO.setId(item.getId());
             studentEvalDO.setTeacherId(submitReq.getTeacherId());
             studentEvalDO.setStuClassId(submitReq.getStuClassId());
             studentEvalDO.setRate(item.getRate());
@@ -59,6 +58,8 @@ public class EvalServiceImpl extends ServiceImpl<EvalMapper, EvalDO> implements 
     public List<EvalDO> list(String evalItemName,Integer id, Integer pageNum, Integer pageSize) {
       return   mapper.pagelist(evalItemName,id , pageNum, pageSize);
     }
+
+
 }
 
 

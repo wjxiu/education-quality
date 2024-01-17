@@ -3,6 +3,7 @@ package com.github.wjxiu.controller;
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.EvalDO;
 import com.github.wjxiu.DTO.Req.EvalSubmitReq;
+import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.common.token.UserContext;
@@ -26,11 +27,11 @@ public class EvalController {
     final EvalService evalService;
     final
     @GetMapping("/list")
-    public R<PageInfo<EvalDO>> list(String evalItem,Integer id, Integer pageNum, Integer pageSize) {
+    public R<PageInfo<EvalDO>> list(String evalItem,Integer id, Integer pageNum,
+                                    Integer pageSize) {
       List<EvalDO> list=  evalService.list(evalItem, id, pageNum, pageSize);
         return R.success(new PageInfo<EvalDO>(list));
     }
-
     /**
      * 查询学生对教师的评价
      * @param teacherId

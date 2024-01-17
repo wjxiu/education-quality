@@ -2,8 +2,8 @@ package com.github.wjxiu.mapper;
 
 import com.github.wjxiu.DO.EvalDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.wjxiu.DTO.Resp.EvalRateReq;
 import com.github.wjxiu.DO.StuClassDO;
+import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -16,11 +16,12 @@ import java.util.List;
 */
 public interface EvalMapper extends BaseMapper<EvalDO> {
 
-    List<EvalRateReq> getTeacherEvalByStuidAndTeacherId(@Param("stuId") Integer stuId, @Param("teacherId") Integer teacherId);
+    List<EvalRateResp> getTeacherEvalByStuidAndTeacherId(@Param("stuId") Integer stuId, @Param("teacherId") Integer teacherId);
 
     List<EvalDO> pagelist(@Param("evalItemName") String evalItemName,
                           @Param("id") Integer id,
                           @Param("pageNum") Integer pageNum,@Param("pageSize") Integer pageSize);
+
 
     /**
     * @author xiu

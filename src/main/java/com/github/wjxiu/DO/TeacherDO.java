@@ -1,22 +1,26 @@
 package com.github.wjxiu.DO;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * 教师表
+ *
  * @TableName teacher
  */
-@TableName(value ="teacher")
+@TableName(value = "teacher")
 @Data
 public class TeacherDO implements Serializable {
     /**
-     *是唯一标识也是工号
+     * 是唯一标识也是工号
      */
-    @TableId(value = "id",type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -35,25 +39,11 @@ public class TeacherDO implements Serializable {
      */
     @TableField(value = "email")
     private String email;
-
-    /**
-     *
-     */
-    @TableField(value = "create_time")
-    private Date createTime;
-
-    /**
-     *
-     */
-    @TableField(value = "update_time")
-    private Date updateTime;
-
-    /**
-     * 是否删除 1为已经删除，0未删除
-     */
-    @TableLogic
-    @TableField(value = "del_flag")
-    private Integer delFlag;
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
     /**
      *

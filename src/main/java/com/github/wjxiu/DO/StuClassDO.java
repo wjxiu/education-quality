@@ -1,11 +1,13 @@
 package com.github.wjxiu.DO;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
 
 /**
@@ -65,19 +67,16 @@ public class StuClassDO implements Serializable {
      */
     @TableField(value = "create_name")
     private Date createName;
-
-    /**
-     * 修改时间
-     */
-    @TableField(value = "update_time")
-    private Date updateTime;
-
     /**
      * 1 已删除 0未删除
      */
     @TableField(value = "del_flag")
     private Integer delFlag;
-
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

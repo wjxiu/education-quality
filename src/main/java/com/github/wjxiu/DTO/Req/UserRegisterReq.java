@@ -1,4 +1,4 @@
-package com.github.wjxiu.DTO.Resp;
+package com.github.wjxiu.DTO.Req;
 
 import com.github.wjxiu.DO.StudentDO;
 import com.github.wjxiu.DO.TeacherDO;

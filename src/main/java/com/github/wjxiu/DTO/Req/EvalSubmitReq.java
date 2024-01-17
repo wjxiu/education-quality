@@ -1,5 +1,6 @@
 package com.github.wjxiu.DTO.Req;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.wjxiu.DTO.EvalSubmitItem;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @create 2024-01-11 21:02
  */
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EvalSubmitReq {
     Integer stuId;
     //班级id

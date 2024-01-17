@@ -1,6 +1,5 @@
 package com.github.wjxiu.controller;
 
-import com.github.wjxiu.DTO.Resp.Statistics.BestAndWorstRateResp;
 import com.github.wjxiu.DTO.Resp.Statistics.ClassRateSituationResp;
 import com.github.wjxiu.DTO.Resp.Statistics.TeacherRateSituationResp;
 import com.github.wjxiu.common.R;
@@ -28,8 +27,6 @@ public class StatisticsController {
 //    学生查看需要评价多少教师
 //    教师查看自己的评分情况
 //    管理员查看评分情况
-//    教师查看学生最满意的一项评价项
-//    教师查看学生最不满意的一项
 
     /**
      * 查看某个教师所属学生的评分情况
@@ -39,6 +36,8 @@ public class StatisticsController {
     public R<List<TeacherRateSituationResp>> getStudentRateSituation(@PathVariable(value = "teacherIds",required = false) List<Integer> teacherIds){
        return R.success(statisticsService.getStudentRateSituation(teacherIds));
     }
+
+
     /**
      * 查看学生未完成评价的课程
      * @param studentIds

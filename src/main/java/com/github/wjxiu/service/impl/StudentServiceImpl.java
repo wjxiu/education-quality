@@ -1,4 +1,4 @@
-package com.github.wjxiu.service.impl;
+        package com.github.wjxiu.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -12,13 +12,14 @@ import com.github.wjxiu.DTO.Resp.LoginResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.token.UserContext;
 import com.github.wjxiu.common.token.UserInfoDTO;
+import com.github.wjxiu.mapper.StudentCourseClassTeacherMapper;
 import com.github.wjxiu.mapper.StudentMapper;
+import com.github.wjxiu.service.StudentEvalService;
 import com.github.wjxiu.service.StudentService;
 import com.github.wjxiu.utils.JWTUtil;
 import com.github.wjxiu.utils.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,6 +38,8 @@ import java.util.List;
 public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
         implements StudentService {
     final StudentMapper studentMapper;
+    final StudentEvalService studentEvalService;
+    final StudentCourseClassTeacherMapper studentCourseClassTeacherMapper;
     @Override
     public LoginResp login(Integer id, String password) {
         log.info("测试");
@@ -74,10 +77,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
     }
 
     @Override
-    public List<EvalRateResp> getAllTeacher() {
-        Integer userId = UserContext.getUserId();
-        return studentMapper.getAllTeacher(userId);
+    public List<EvalRateResp> getStuTeacherByStuId(Integer stuId) {
+        if (stuId ==null||stuId==0)stuId=UserContext.getUserId();
+        return studentMapper.getAllTeacher(stuId);
     }
+
+
 
     @Override
     public PageInfo<StudentDO> pageList(StudentPageReq studentPageReq, Integer pageNum, Integer pageSize) {
@@ -96,6 +101,9 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
         entity.setPassword(encrptPasswd);
       return super.updateById(entity);
     }
+
+
+
 
     @Override
     public boolean save(StudentDO entity) {

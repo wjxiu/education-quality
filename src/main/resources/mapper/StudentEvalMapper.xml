@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.wjxiu.mapper.StudentMapper.StudentEvalMapper">
+<mapper namespace="com.github.wjxiu.mapper.StudentEvalMapper">
 
     <resultMap id="BaseResultMap" type="com.github.wjxiu.DO.StudentEvalDO">
             <id property="id" column="id" jdbcType="INTEGER"/>
@@ -20,4 +20,59 @@
         eval_id,stu_class_id,rate,
         create_time,update_time
     </sql>
+    <select id="getStudentRatePage" resultType="com.github.wjxiu.DTO.Resp.EvalRateResp">
+        SELECT
+        se.id,
+        se.rate,
+        e.eval_item,
+        e.id AS evalId,
+        scct.course_id,
+        scct.course_name,
+        scct.stu_class_id,
+        scct.stu_class_name,
+        scct.teacher_id,
+        scct.teacher_name,
+        scct.student_id,
+        scct.student_name,
+        se.create_time,
+        se.update_time
+        FROM
+        student_eval se
+        JOIN student_course_class_teacher scct ON se.stu_id = scct.student_id
+        AND se.teacher_id = scct.teacher_id
+        JOIN eval e ON e.id = se.eval_id
+        <where>
+
+            <if test="resp.studentId != null">
+                AND scct.student_id = #{resp.studentId}
+            </if>
+            <if test="resp.studentName != null and resp.studentName!=''">
+                AND scct.student_name like concat('%', #{resp.studentName},'%')
+            </if>
+            <if test="resp.courseName != null and resp.courseName!=''">
+                AND scct.course_name like concat('%', #{resp.courseName},'%')
+            </if>
+            <if test="resp.courseId != null and resp.courseId!=''">
+                AND scct.course_id = #{resp.courseId}
+            </if>
+            <if test="resp.teacherId != null">
+                AND scct.teacher_id = #{resp.teacherId}
+            </if>
+            <if test="resp.teacherName != null and teacherName!=''">
+                AND scct.teacher_name like concat('%',#{resp.teacherName} ,'%')
+            </if>
+            <if test="resp.stuClassId != null and resp.stuClassId!=''">
+                AND scct.stu_class_id =#{resp.stuClassId}
+            </if>
+            <if test="resp.stuClassName != null and resp.stuClassName!=''">
+                AND scct.teacher_name like concat('%',#{resp.teacherName} ,'%')
+            </if>
+            <if test="resp.rate != null and resp.rate!=''">
+                AND se.rate = #{resp.rate}
+            </if>
+            <if test="resp.evalId != null and resp.evalId!=''">
+                AND se.eval_id =#{resp.evalId}
+            </if>
+        </where>
+    </select>
 </mapper>

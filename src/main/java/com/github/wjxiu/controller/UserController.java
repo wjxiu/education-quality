@@ -2,7 +2,7 @@ package com.github.wjxiu.controller;
 
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
 import com.github.wjxiu.DTO.Req.LoginReq;
-import com.github.wjxiu.DTO.Resp.UserRegisterReq;
+import com.github.wjxiu.DTO.Req.UserRegisterReq;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.common.token.UserContext;
@@ -12,7 +12,6 @@ import com.github.wjxiu.service.TeacherService;
 import com.github.wjxiu.utils.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.Jar;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

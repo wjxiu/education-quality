@@ -70,6 +70,7 @@ public class StudentCourseClassTeacherDO implements Serializable {
      */
     @TableField(value = "teacher_name")
     private String teacherName;
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)

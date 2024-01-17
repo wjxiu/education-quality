@@ -24,9 +24,10 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
     final CourseService courseService;
-    @PostMapping("/list")
-    public PageInfo<TeacherPageResp> list(@RequestBody TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
-        return null;
+    @GetMapping("/list")
+    public R<PageInfo<CourseDO>> list( CourseDO course, Integer pageNum, Integer pageSize) {
+       List<CourseDO> list= courseService.listPage(course,pageNum,pageSize);
+        return R.success(new PageInfo<>(list));
     }
     @GetMapping(value = {"/allName/{departmentName}","/allName"})
     public R getCourseNameByDepartmentName(@PathVariable(value = "departmentName",required = false) String departmentName){

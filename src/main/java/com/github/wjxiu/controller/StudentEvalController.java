@@ -53,7 +53,6 @@ public class StudentEvalController {
         studentEvalDO.setId(evalRateResp.getId());
         //studentEvalDO.setStuId(evalRateResp.getStudentId());
         studentEvalDO.setRate(evalRateResp.getRate());
-        studentEvalDO.setUpdateTime(new Date());
         boolean save = studentEvalService.updateById(studentEvalDO);
         if (save)return R.success();
         throw new ClientException("修改专业失败");

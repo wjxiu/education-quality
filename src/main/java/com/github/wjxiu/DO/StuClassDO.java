@@ -63,15 +63,11 @@ public class StuClassDO implements Serializable {
     private String courseName;
 
     /**
-     * 创建时间
-     */
-    @TableField(value = "create_name")
-    private Date createName;
-    /**
      * 1 已删除 0未删除
      */
     @TableField(value = "del_flag")
     private Integer delFlag;
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)

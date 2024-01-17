@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.wjxiu.DO.CourseDO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
 * @author xiu
 * @description 针对表【course(课程表)】的数据库操作Mapper
@@ -12,6 +14,10 @@ import org.apache.ibatis.annotations.Param;
 */
 public interface CourseMapper extends BaseMapper<CourseDO> {
     public CourseDO selectAllByTeacherId(@Param("teacherId") Integer teacherId);
+
+    List<CourseDO> listPage(@Param("course") CourseDO course,
+                           @Param("pageNum") Integer pageNum,
+                           @Param("pageSize") Integer pageSize);
 }
 
 

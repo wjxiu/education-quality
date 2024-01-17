@@ -28,7 +28,7 @@ public class DepartmentDO implements Serializable {
      */
     @TableField(value = "name")
     private String name;
-
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)

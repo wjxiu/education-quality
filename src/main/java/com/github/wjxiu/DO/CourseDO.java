@@ -59,11 +59,11 @@ public class CourseDO implements Serializable {
     @TableField(value = "del_flag")
     private Integer delFlag;
 
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+//    @TableField(value = "create_time",fill = FieldFill.INSERT)
+//    private LocalDateTime createTime;
+//    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
+//    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+//    private LocalDateTime updateTime;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

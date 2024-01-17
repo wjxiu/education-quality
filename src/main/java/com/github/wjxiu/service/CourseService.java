@@ -17,4 +17,6 @@ public interface CourseService extends IService<CourseDO> {
     */
    List<String> getAllName();
    Boolean courseNameisExit(String name);
+
+    List<CourseDO> listPage(CourseDO course, Integer pageNum, Integer pageSize);
 }

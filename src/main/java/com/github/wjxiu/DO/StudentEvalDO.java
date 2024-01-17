@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
@@ -52,7 +51,7 @@ public class StudentEvalDO implements Serializable {
      */
     @TableField(value = "rate")
     private Integer rate;
-
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)

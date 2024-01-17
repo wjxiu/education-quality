@@ -20,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseDO>
         implements CourseService {
+    final CourseMapper courseMapper;
     @Override
     public List<String> getAllName() {
         return list(new LambdaQueryWrapper<CourseDO>().select(CourseDO::getCourseName))
@@ -33,6 +34,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, CourseDO>
     public Boolean courseNameisExit(String name) {
         return  count(new LambdaQueryWrapper<CourseDO>().eq(CourseDO::getCourseName, name))>0;
 
+    }
+
+    @Override
+    public List<CourseDO> listPage(CourseDO course, Integer pageNum, Integer pageSize) {
+       return  courseMapper.listPage(course,pageNum,pageSize);
     }
 }
 

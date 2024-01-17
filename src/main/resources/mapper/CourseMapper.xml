@@ -25,5 +25,26 @@
         from course
         where teacher_id=#{teacherId}
     </select>
+    <select id="listPage" resultType="com.github.wjxiu.DO.CourseDO">
+        select *
+        from course
+        <where>
+            <if test="course.courseName !=null and course.courseName!=''">
+                and course_name like concat('%',#{course.courseName},'%')
+            </if>
+            <if test="course.departmentName !=null and course.departmentName!=''">
+                and department_name =#{course.departmentName}
+            </if>
+            <if test="course.majorName !=null and course.majorName!=''">
+                and course_name =#{course.majorName}
+            </if>
+            <if test="course.startYear !=null and course.startYear!=''">
+                and start_yaer =#{course.startYear}
+            </if>
+            <if test="course.startYear !=null and course.startYear!=''">
+                and term =#{course.term}
+            </if>
+        </where>
+    </select>
 
 </mapper>

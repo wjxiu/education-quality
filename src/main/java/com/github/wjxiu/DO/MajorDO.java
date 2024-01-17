@@ -40,7 +40,7 @@ public class MajorDO implements Serializable {
      */
     @TableField(value = "department_name")
     private String departmentName;
-
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)

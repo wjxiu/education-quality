@@ -39,19 +39,6 @@ public class CourseDO implements Serializable {
      */
     @TableField(value = "major_name")
     private String majorName;
-
-    /**
-     * 开始年份
-     */
-    @TableField(value = "start_year")
-    private Integer startYear;
-
-    /**
-     * 上学期  下学期 全年
-     */
-    @TableField(value = "Term")
-    private String term;
-
     /**
      *
      */

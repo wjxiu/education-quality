@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.Data;
  */
 @TableName(value ="stu_class")
 @Data
+@JsonIgnoreProperties(value = { "createTime","updateTime" }, allowSetters = true)
 public class StuClassDO implements Serializable {
     /**
      * 
@@ -61,7 +63,10 @@ public class StuClassDO implements Serializable {
      */
     @TableField(value = "course_name")
     private String courseName;
-
+    @TableField(value = "start_year")
+    private Integer startYear;
+    @TableField(value = "term")
+    private String term;
     /**
      * 1 已删除 0未删除
      */

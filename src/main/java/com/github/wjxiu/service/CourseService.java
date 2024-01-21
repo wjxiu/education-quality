@@ -19,4 +19,7 @@ public interface CourseService extends IService<CourseDO> {
    Boolean courseNameisExit(String name);
 
     List<CourseDO> listPage(CourseDO course, Integer pageNum, Integer pageSize);
+
+    @Override
+     boolean updateById(CourseDO entity) ;
 }

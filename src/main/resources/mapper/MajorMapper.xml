@@ -9,14 +9,14 @@
             <result property="majorName" column="major_name" jdbcType="VARCHAR"/>
             <result property="departmentId" column="department_id" jdbcType="INTEGER"/>
             <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
-            <result property="createName" column="create_name" jdbcType="TIMESTAMP"/>
+            <result property="createName" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,major_name,department_id,
-        department_name,create_name,update_time,
+        department_name,create_time,update_time,
         del_flag
     </sql>
     <select id="pageList" resultType="com.github.wjxiu.DO.MajorDO">

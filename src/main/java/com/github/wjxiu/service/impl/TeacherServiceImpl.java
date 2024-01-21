@@ -4,6 +4,7 @@ package com.github.wjxiu.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageInfo;
+import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
 import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
 import com.github.wjxiu.DTO.Req.TeacherPageReq;
@@ -12,6 +13,7 @@ import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.token.UserContext;
 import com.github.wjxiu.common.token.UserInfoDTO;
+import com.github.wjxiu.mapper.StudentCourseClassTeacherMapper;
 import com.github.wjxiu.mapper.TeacherMapper;
 import com.github.wjxiu.service.TeacherService;
 import com.github.wjxiu.utils.JWTUtil;
@@ -32,7 +34,7 @@ import java.util.List;
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
         implements TeacherService {
     final TeacherMapper teacherMapper;
-
+    final StudentCourseClassTeacherMapper studentCourseClassTeacherMapper;
     @Override
     public LoginResp login(Integer id, String password) {
         TeacherDO teacherDO = getById(id);
@@ -76,6 +78,12 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
     public PageInfo<TeacherPageResp> selectTeacherList(TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
         List<TeacherPageResp> teacherPageResps = teacherMapper.selectTeacherList(teacher, pageNum, pageSize);
        return new PageInfo<>(teacherPageResps);
+    }
+
+    @Override
+    public List<StudentCourseClassTeacherDO> getTeacherClasses(Integer teacherId) {
+       return  studentCourseClassTeacherMapper.selectList(
+                new LambdaQueryWrapper<StudentCourseClassTeacherDO>().eq(StudentCourseClassTeacherDO::getTeacherId, teacherId));
     }
 }
 

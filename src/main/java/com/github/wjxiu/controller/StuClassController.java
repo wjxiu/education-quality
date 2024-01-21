@@ -2,10 +2,13 @@ package com.github.wjxiu.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.StuClassDO;
+import com.github.wjxiu.DO.StudentDO;
+import com.github.wjxiu.DTO.Req.AddStuClassStudentReq;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.service.StuClassService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +19,7 @@ import java.util.List;
  * @create 2024-01-14 0:08
  */
 @RestController
-@RequiredArgsConstructor
+@RequiredArgsConstructor@Slf4j
 @RequestMapping("/stuClass")
 public class StuClassController {
     final StuClassService stuClassService;
@@ -26,10 +29,26 @@ public class StuClassController {
                                      @RequestParam(defaultValue = "10") Integer pageSize) {
         return R.success(new PageInfo<>(stuClassService.pageList(stuClassDO,pageNum,pageSize)));
     }
+    @GetMapping("/addStuClassStudent")
+    public  R addStuClassStudent(AddStuClassStudentReq addStuClassStudentReq){
+       boolean res= stuClassService.addStuClassStudent(addStuClassStudentReq);
+       return R.success();
+    }
+    @GetMapping("/getStuClassStudent/{stuClassId}")
+    public  R getStuClassStudent(@PathVariable Integer stuClassId,@RequestParam(required = false) Integer studentId,@RequestParam(required = false)String studentName){
+        List<StudentDO> res= stuClassService.getStuClassStudent(stuClassId,studentId,studentName);
+        return R.success(res);
+    }
+    @DeleteMapping("/deleteClassStudent/{stuClassId}/{StuIds}")
+    public R deleteClassStudent(@PathVariable("stuClassId") Integer stuClassId, @PathVariable("StuIds")List<Integer> StuIds){
+      boolean res=  stuClassService.deleteClassStudent(stuClassId,StuIds);
+      return R.success(res);
+    }
 
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){
         StuClassDO StuClassDO = stuClassService.getById(id);
+        log.info(StuClassDO.toString());
         return R.success(StuClassDO);
     }
     @PostMapping

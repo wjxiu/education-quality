@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.github.wjxiu.DO.StuClassDO;
+import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
 import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.TeacherPageReq;
 import com.github.wjxiu.DTO.Resp.TeacherPageResp;
@@ -57,6 +59,11 @@ public class TeacherController {
         TeacherDO teacherDO = teacherService.getById(id);
         teacherDO.setPassword("");
         return R.success(teacherDO);
+    }
+    @GetMapping("/getTeacherClasses/{teacherIds}")
+    public R getTeacherClasses(@PathVariable Integer teacherIds){
+       List<StudentCourseClassTeacherDO> list= teacherService.getTeacherClasses(teacherIds);
+        return R.success(list);
     }
     @PostMapping
     public R save(@Validated @RequestBody TeacherDO teacherDO){

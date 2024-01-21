@@ -34,7 +34,11 @@ public class CourseController {
         List<String> list = courseService.list(new LambdaQueryWrapper<CourseDO>().select(CourseDO::getCourseName).eq(departmentName!=null&& !departmentName.isEmpty(),CourseDO::getDepartmentName,departmentName)).stream().map(CourseDO::getCourseName).toList();
         return R.success(list);
     }
-
+    @GetMapping(value = {"/allName/major/{MajorName}"})
+    public R getCourseNameByMajorName(@PathVariable(value = "MajorName",required = false) String MajorName){
+        List<String> list = courseService.list(new LambdaQueryWrapper<CourseDO>().select(CourseDO::getCourseName).eq(MajorName!=null&& !MajorName.isEmpty(),CourseDO::getMajorName,MajorName)).stream().map(CourseDO::getCourseName).toList();
+        return R.success(list);
+    }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){
         CourseDO CourseDO = courseService.getById(id);

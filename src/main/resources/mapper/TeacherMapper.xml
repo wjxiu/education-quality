@@ -44,12 +44,10 @@
         t.create_time,
         t.update_time,
         t.admin_flag,
-#         c.course_name,
+        c.course_name,
         c.id as c_id,
         c.department_name,
-        c.major_name,
-#         c.start_year,
-#         c.term
+        c.major_name
         from teacher t
         left join  stu_class c on t.id = c.teacher_id
         <where>

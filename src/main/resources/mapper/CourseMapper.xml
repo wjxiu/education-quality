@@ -6,12 +6,9 @@
 
     <resultMap id="BaseResultMap" type="com.github.wjxiu.DO.CourseDO">
             <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="teacherId" column="teacher_id" jdbcType="INTEGER"/>
             <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
             <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
             <result property="majorName" column="major_name" jdbcType="VARCHAR"/>
-            <result property="startYear" column="start_year" jdbcType="INTEGER"/>
-            <result property="term" column="term" jdbcType="VARCHAR"/>
             <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
     </resultMap>
 
@@ -23,7 +20,7 @@
     <select id="selectAllByTeacherId" resultType="com.github.wjxiu.DO.CourseDO">
         select *
         from course
-        where teacher_id=#{teacherId}
+#         where teacher_id=#{teacherId}
     </select>
     <select id="listPage" resultType="com.github.wjxiu.DO.CourseDO">
         select *
@@ -36,13 +33,7 @@
                 and department_name =#{course.departmentName}
             </if>
             <if test="course.majorName !=null and course.majorName!=''">
-                and course_name =#{course.majorName}
-            </if>
-            <if test="course.startYear !=null and course.startYear!=''">
-                and start_yaer =#{course.startYear}
-            </if>
-            <if test="course.startYear !=null and course.startYear!=''">
-                and term =#{course.term}
+                and major_name =#{course.majorName}
             </if>
         </where>
     </select>

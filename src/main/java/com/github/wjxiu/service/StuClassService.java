@@ -2,6 +2,8 @@ package com.github.wjxiu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.wjxiu.DO.StuClassDO;
+import com.github.wjxiu.DO.StudentDO;
+import com.github.wjxiu.DTO.Req.AddStuClassStudentReq;
 
 import java.util.List;
 
@@ -14,4 +16,10 @@ public interface StuClassService extends IService<StuClassDO> {
 
     List< StuClassDO> pageList(StuClassDO stuClassDO, Integer pageNum, Integer pageSize);
     boolean updateById(StuClassDO entity) ;
+
+    boolean addStuClassStudent(AddStuClassStudentReq addStuClassStudentReq);
+
+    List<StudentDO> getStuClassStudent(Integer stuClassId,Integer studentId, String studentName);
+
+    boolean deleteClassStudent(Integer stuClassId, List<Integer> stuIds);
 }

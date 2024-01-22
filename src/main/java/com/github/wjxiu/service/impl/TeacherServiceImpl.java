@@ -23,6 +23,7 @@ import com.github.wjxiu.utils.PasswordUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -105,6 +106,26 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
     public List<StudentCourseClassTeacherDO> getTeacherClasses(Integer teacherId) {
        return  studentCourseClassTeacherMapper.selectList(
                 new LambdaQueryWrapper<StudentCourseClassTeacherDO>().eq(StudentCourseClassTeacherDO::getTeacherId, teacherId));
+    }
+    @Transactional(rollbackFor = Throwable.class)
+    @Override
+    public boolean updateById(TeacherDO entity) {
+//        更新
+        List<StuClassDO> allByTeacherId = stuClassMapper.getAllByTeacherId(entity.getId());
+        for (StuClassDO stuClassDO : allByTeacherId) {
+            stuClassDO.setTeacherName(entity.getRealName());
+            int i1 = stuClassMapper.updateById(stuClassDO);
+            if (i1==0)throw new ClientException("更新教师失败");
+        }
+        List<StudentCourseClassTeacherDO> allByTeacherId1 = studentCourseClassTeacherMapper.getAllByTeacherId(entity.getId());
+        for (StudentCourseClassTeacherDO studentCourseClassTeacherDO : allByTeacherId1) {
+            studentCourseClassTeacherDO.setTeacherName(entity.getRealName());
+            int i1 = studentCourseClassTeacherMapper.updateById(studentCourseClassTeacherDO);
+            if (i1==0)throw new ClientException("更新教师失败");
+        }
+        boolean b = super.updateById(entity);
+        if (!b)throw new ClientException("更新教师失败");
+        return true;
     }
 }
 

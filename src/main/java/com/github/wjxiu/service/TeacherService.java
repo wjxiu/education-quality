@@ -28,4 +28,7 @@ public interface TeacherService extends IService<TeacherDO> {
     PageInfo<TeacherPageResp> selectTeacherList(TeacherPageReq teacher, Integer pageNum, Integer pageSize);
 
     List<StudentCourseClassTeacherDO> getTeacherClasses(Integer teacherId);
+
+    @Override
+     boolean updateById(TeacherDO entity);
 }

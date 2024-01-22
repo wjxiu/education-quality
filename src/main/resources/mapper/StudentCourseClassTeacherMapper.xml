@@ -25,6 +25,7 @@
     <select id="getAllByTeacherId" resultType="com.github.wjxiu.DO.StudentCourseClassTeacherDO">
         select *
         from student_course_class_teacher
-        where teacher_id=#{id}
+        where teacher_id=#{id} and del_flag=0
+
     </select>
 </mapper>

@@ -40,7 +40,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
         TeacherDO teacherDO = getById(id);
         if (teacherDO == null) throw new ClientException("没有这名用户");
         if (!PasswordUtil.verifyPassword(password, teacherDO.getPassword())) throw new ClientException("密码错误");
-        String token = JWTUtil.generateAccessToken(new UserInfoDTO(id, teacherDO.getRealName(), 1, null));
+        String token = JWTUtil.generateAccessToken(new UserInfoDTO(id, teacherDO.getRealName(), teacherDO.getAdminFlag()==1?2:1, null));
         LoginResp loginResp = new LoginResp();
         loginResp.setId(id);
         loginResp.setName(teacherDO.getRealName());

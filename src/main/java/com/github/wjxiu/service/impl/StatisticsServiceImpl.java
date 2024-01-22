@@ -59,7 +59,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public List<String> getStudentRemainCoursRate(List<Integer> studentIds) {
+    public List<String> getStudentRemainStuClassRate(List<Integer> studentIds) {
         long evalCount = evalService.count();
         List<StudentCourseClassTeacherDO> list = studentCourseClassTeacherService.list(new LambdaQueryWrapper<StudentCourseClassTeacherDO>()
                 .in(studentIds!=null&&!studentIds.isEmpty(),StudentCourseClassTeacherDO::getStudentId, studentIds)
@@ -70,8 +70,8 @@ public class StatisticsServiceImpl implements StatisticsService {
         for (StudentCourseClassTeacherDO studentCourseClassTeacherDO : list) {
             Integer stuClassId = studentCourseClassTeacherDO.getStuClassId();
             List<StudentEvalDO> studentEvalDOS1 = collect1.get(stuClassId);
-            if (studentEvalDOS1==null||studentEvalDOS1.size()<evalCount){
-                res.add(studentCourseClassTeacherDO.getCourseName());
+            if (studentEvalDOS1==null||studentEvalDOS1.stream().map(StudentEvalDO::getRate).filter(i -> i > 0).count()<evalCount){
+                res.add(studentCourseClassTeacherDO.getStuClassName());
             }
         }
         return res;

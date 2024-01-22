@@ -32,7 +32,7 @@ public class StatisticsController {
      * 查看某个教师所属学生的评分情况
      * @return
      */
-    @GetMapping(value = {"/getStudentRateSituation","/getStudentRateSituation/{teacherIds}"})
+    @GetMapping(value = {"/StudentRateSituation","/StudentRateSituation/{teacherIds}"})
     public R<List<TeacherRateSituationResp>> getStudentRateSituation(@PathVariable(value = "teacherIds",required = false) List<Integer> teacherIds){
        return R.success(statisticsService.getStudentRateSituation(teacherIds));
     }
@@ -43,9 +43,9 @@ public class StatisticsController {
      * @param studentIds
      * @return
      */
-    @GetMapping(value = {"/getStudentRemainRate/{studentIds}"})
-    public R getStudentRemainRate(@PathVariable List<Integer> studentIds){
-        return R.success(statisticsService.getStudentRemainCoursRate(studentIds));
+    @GetMapping(value = {"/StudentRemainStuClassRate/{studentIds}"})
+    public R getStudentRemainStuClassRate(@PathVariable List<Integer> studentIds){
+        return R.success(statisticsService.getStudentRemainStuClassRate(studentIds));
     }
 
     /**

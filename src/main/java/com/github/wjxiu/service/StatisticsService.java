@@ -12,7 +12,7 @@ import java.util.List;
 public interface StatisticsService {
     List<TeacherRateSituationResp> getStudentRateSituation(List<Integer> teacherId);
 
-    List<String> getStudentRemainCoursRate(List<Integer> studentIds);
+    List<String> getStudentRemainStuClassRate(List<Integer> studentIds);
     /**
      * 查看某个班级的评分条数
      * @param stuClassIds

@@ -1,8 +1,11 @@
 package com.github.wjxiu.controller;
 
+import com.github.wjxiu.DO.StudentDO;
+import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
 import com.github.wjxiu.DTO.Req.LoginReq;
 import com.github.wjxiu.DTO.Req.UserRegisterReq;
+import com.github.wjxiu.DTO.Resp.UserInfoResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.common.token.UserContext;
@@ -12,6 +15,7 @@ import com.github.wjxiu.service.TeacherService;
 import com.github.wjxiu.utils.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,10 +35,11 @@ public class UserController {
     final TeacherService teacherService;
     @PostMapping("/login")
     public R login(@Validated @RequestBody LoginReq loginReq){
-        log.info("测试UserController");
         if (loginReq.getType()==0){
          return  R.success(studentService.login(loginReq.getId(),loginReq.getPassword()));
         }else if(loginReq.getType()==1){
+            return  R.success(teacherService.login(loginReq.getId(),loginReq.getPassword()));
+        } else if(loginReq.getType()==2){
             return  R.success(teacherService.login(loginReq.getId(),loginReq.getPassword()));
         }else{
             throw new ClientException("用户类型错误");
@@ -63,18 +68,39 @@ public class UserController {
     @GetMapping("/info")
     public R userInfo(@NotBlank String token){
         UserInfoDTO userInfoDTO = JWTUtil.parseJwtToken(token);
-        log.info("------------------------------------------------");
-        log.info(userInfoDTO.toString());
         if (userInfoDTO != null&&userInfoDTO.getType()==0){
-            return  R.success(studentService.getById(userInfoDTO.getUserId()));
-        }else if(userInfoDTO != null&&userInfoDTO.getType()==1){
-            return  R.success(teacherService.getById(userInfoDTO.getUserId()));
-        }else{
-            throw new ClientException("用户类型错误");
+            StudentDO studentDO = studentService.getById(userInfoDTO.getUserId());
+            UserInfoResp userInfoResp = new UserInfoResp();
+            userInfoResp.setId(studentDO.getId());
+            userInfoResp.setIsAdmin(false);
+            userInfoResp.setIsStudent(true);
+            userInfoResp.setType(0);
+            userInfoResp.setRealName(studentDO.getRealName());
+            return  R.success(userInfoResp);
+        }else if(userInfoDTO.getType() == 1){
+            UserInfoResp userInfoResp = new UserInfoResp();
+            TeacherDO teacherDO = teacherService.getById(userInfoDTO.getUserId());
+            userInfoResp.setId(teacherDO.getId());
+            userInfoResp.setIsAdmin(false);
+            userInfoResp.setType(1);
+            userInfoResp.setIsStudent(false);
+            userInfoResp.setRealName(teacherDO.getRealName());
+            return  R.success(userInfoResp);
+        }else if(userInfoDTO.getType() == 2){
+            UserInfoResp userInfoResp = new UserInfoResp();
+            TeacherDO teacherDO = teacherService.getById(userInfoDTO.getUserId());
+            userInfoResp.setId(teacherDO.getId());
+            userInfoResp.setIsAdmin(true);userInfoResp.setType(2);
+            userInfoResp.setIsStudent(false);
+            userInfoResp.setRealName(teacherDO.getRealName());
+            return  R.success(userInfoResp);
         }
+         throw new ClientException("用户类型异常");
+
     }
     @PostMapping("/logout")
     public R logout(){
+        log.info("清楚用户");
         UserContext.removeUser();
         return R.success();
     }

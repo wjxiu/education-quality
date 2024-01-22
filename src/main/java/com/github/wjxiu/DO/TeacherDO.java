@@ -1,7 +1,10 @@
 package com.github.wjxiu.DO;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.github.wjxiu.conf.MyLocalDateTimeDeSerializer;
 import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
 
@@ -39,9 +42,11 @@ public class TeacherDO implements Serializable {
      */
     @TableField(value = "email")
     private String email;
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;

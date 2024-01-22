@@ -22,4 +22,9 @@
         course_name,stu_class_name,teacher_name,
         del_flag
     </sql>
+    <select id="getAllByTeacherId" resultType="com.github.wjxiu.DO.StudentCourseClassTeacherDO">
+        select *
+        from student_course_class_teacher
+        where teacher_id=#{id}
+    </select>
 </mapper>

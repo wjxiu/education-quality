@@ -2,6 +2,8 @@ package com.github.wjxiu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.wjxiu.DO.StuClassDO;
+import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
+import com.github.wjxiu.DO.TeacherDO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,6 +19,8 @@ public interface StuClassMapper extends BaseMapper<StuClassDO> {
     List<StuClassDO> pageList(@Param("stuClassDO") StuClassDO stuClassDO,
                               @Param("pageNum") Integer pageNum,
                               @Param("pageSize") Integer pageSize);
+
+    List<StuClassDO> getAllByTeacherId(Integer id);
 }
 
 

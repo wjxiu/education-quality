@@ -46,4 +46,10 @@
             and del_flag=0
         </where>
     </select>
+    <select id="getAllByTeacherId" resultType="com.github.wjxiu.DO.StuClassDO">
+        select *
+        from stu_class
+        where teacher_id=#{id}
+        and del_flag=0
+    </select>
 </mapper>

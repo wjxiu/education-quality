@@ -2,7 +2,6 @@ package com.github.wjxiu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.github.wjxiu.DO.StuClassDO;
 import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
 import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
@@ -19,7 +18,7 @@ import java.util.List;
 */
 public interface TeacherService extends IService<TeacherDO> {
 
-    LoginResp login(Integer id, String password);
+    LoginResp login(Integer id, String password,Integer type);
 
     Integer register(TeacherDO teacherDO);
 

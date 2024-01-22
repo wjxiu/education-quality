@@ -25,53 +25,63 @@
             <result property="delFlag" column="del_flag" jdbcType="TINYINT"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="adminFlag" column="admin_flag" jdbcType="TINYINT"/>
-        <collection property="courses" ofType="com.github.wjxiu.DO.CourseDO"  >
-            <id property="id" column="c_id" jdbcType="INTEGER"/>
-            <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
-            <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
-            <result property="majorName" column="major_name" jdbcType="VARCHAR"/>
-            <result property="startYear" column="start_year" jdbcType="INTEGER"/>
-            <result property="term" column="term" jdbcType="VARCHAR"/>
-            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
-        </collection>
+<!--        <collection property="courses" ofType="com.github.wjxiu.DO.CourseDO"  >-->
+<!--            <id property="id" column="c_id" jdbcType="INTEGER"/>-->
+<!--            <result property="courseName" column="course_name" jdbcType="VARCHAR"/>-->
+<!--            <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>-->
+<!--            <result property="majorName" column="major_name" jdbcType="VARCHAR"/>-->
+<!--            <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>-->
+<!--        </collection>-->
     </resultMap>
-    <select id="selectTeacherList"  resultMap="PageResultMap">
-        select
-        t.id ,
-        t.real_name,
-        t.phone,
-        t.email,
-        t.create_time,
-        t.update_time,
-        t.admin_flag,
-        c.course_name,
-        c.id as c_id,
-        c.department_name,
-        c.major_name
-        from teacher t
-        left join  stu_class c on t.id = c.teacher_id
+<!--    <select id="selectTeacherList"  resultMap="PageResultMap">-->
+<!--        select-->
+<!--        t.id ,-->
+<!--        t.real_name,-->
+<!--        t.phone,-->
+<!--        t.email,-->
+<!--        t.create_time,-->
+<!--        t.update_time,-->
+<!--        t.admin_flag,-->
+<!--        c.course_name,-->
+<!--        c.id as c_id,-->
+<!--        c.department_name,-->
+<!--        c.major_name-->
+<!--        from teacher t-->
+<!--        left join  stu_class c on t.id = c.teacher_id-->
+<!--        <where>-->
+<!--            <if test="teacher!=null">-->
+<!--                <if test="teacher.realName!=null and teacher.realName!='' ">-->
+<!--                    and t.real_name like concat('%', #{teacher.realName}, '%')-->
+<!--                </if>-->
+<!--                <if test="teacher.adminFlag!=null and teacher.adminFlag!='' ">-->
+<!--                    and t.admin_flag like concat('%', #{teacher.adminFlag}, '%')-->
+<!--                </if>-->
+<!--                <if test="teacher.departmentName!=null and teacher.departmentName!=''">-->
+<!--                    and c.department_name like concat('%', #{teacher.departmentName}, '%')-->
+<!--                </if>-->
+<!--                <if test="teacher.majorName!=null and teacher.majorName!=''">-->
+<!--                    and c.major_name like concat('%', #{teacher.majorName}, '%')-->
+<!--                </if>-->
+<!--&lt;!&ndash;                <if test="teacher.startYear!=null and teacher.startYear!=''">&ndash;&gt;-->
+<!--&lt;!&ndash;                    and c.start_year= #{teacher.startYear}&ndash;&gt;-->
+<!--&lt;!&ndash;                </if>&ndash;&gt;-->
+<!--&lt;!&ndash;                <if test="teacher.term!=null ">&ndash;&gt;-->
+<!--&lt;!&ndash;                    and c.term= #{teacher.term}&ndash;&gt;-->
+<!--&lt;!&ndash;                </if>&ndash;&gt;-->
+<!--            </if>-->
+<!--            and t.del_flag=0-->
+<!--        </where>-->
+<!--    </select>-->
+    <select id="selectTeacherList1" resultType="com.github.wjxiu.DO.TeacherDO">
+        select * from teacher t
         <where>
-            <if test="teacher!=null">
-                <if test="teacher.realName!=null and teacher.realName!='' ">
-                    and t.real_name like concat('%', #{teacher.realName}, '%')
-                </if>
-                <if test="teacher.adminFlag!=null and teacher.adminFlag!='' ">
-                    and t.admin_flag like concat('%', #{teacher.adminFlag}, '%')
-                </if>
-                <if test="teacher.departmentName!=null and teacher.departmentName!=''">
-                    and c.department_name like concat('%', #{teacher.departmentName}, '%')
-                </if>
-                <if test="teacher.majorName!=null and teacher.majorName!=''">
-                    and c.major_name like concat('%', #{teacher.majorName}, '%')
-                </if>
-<!--                <if test="teacher.startYear!=null and teacher.startYear!=''">-->
-<!--                    and c.start_year= #{teacher.startYear}-->
-<!--                </if>-->
-<!--                <if test="teacher.term!=null ">-->
-<!--                    and c.term= #{teacher.term}-->
-<!--                </if>-->
+            <if test="teacher.realName!=null and teacher.realName!='' ">
+                and t.real_name like concat('%', #{teacher.realName}, '%')
             </if>
-            and t.del_flag=0
+            <if test="teacher.adminFlag!=null  ">
+                and t.admin_flag = #{teacher.adminFlag}
+            </if>
+        and del_flag=0
         </where>
     </select>
 </mapper>

@@ -43,11 +43,8 @@ public class TeacherController {
      */
     @GetMapping("/list")
     public R<PageInfo<TeacherPageResp>> list(TeacherPageReq teacher, Integer pageNum, Integer pageSize) {
-        log.info(String.valueOf(teacher));
-        PageInfo<TeacherPageResp> teacherPageResps = teacherService.selectTeacherList(teacher, pageNum, pageSize);
-        log.info(teacherPageResps.toString());
-        log.info(String.valueOf(teacherPageResps.getClass()));
-        return R.success(teacherPageResps);
+        PageInfo<TeacherPageResp> res = teacherService.selectTeacherList(teacher, pageNum, pageSize);
+        return R.success(res);
     }
     @Data
     class testparam{

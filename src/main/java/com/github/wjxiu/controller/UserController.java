@@ -15,7 +15,6 @@ import com.github.wjxiu.service.TeacherService;
 import com.github.wjxiu.utils.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,9 +37,9 @@ public class UserController {
         if (loginReq.getType()==0){
          return  R.success(studentService.login(loginReq.getId(),loginReq.getPassword()));
         }else if(loginReq.getType()==1){
-            return  R.success(teacherService.login(loginReq.getId(),loginReq.getPassword()));
+            return  R.success(teacherService.login(loginReq.getId(),loginReq.getPassword(),1 ));
         } else if(loginReq.getType()==2){
-            return  R.success(teacherService.login(loginReq.getId(),loginReq.getPassword()));
+            return  R.success(teacherService.login(loginReq.getId(),loginReq.getPassword(),2 ));
         }else{
             throw new ClientException("用户类型错误");
         }

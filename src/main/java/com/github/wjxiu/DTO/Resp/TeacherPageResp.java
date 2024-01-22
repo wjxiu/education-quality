@@ -2,6 +2,7 @@ package com.github.wjxiu.DTO.Resp;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.github.wjxiu.DO.CourseDO;
+import com.github.wjxiu.DO.StuClassDO;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class TeacherPageResp {
     /**
      * 教授的课程
      */
-    private List<CourseDO> courses=new ArrayList<>();
+    private List<StuClassDO> stuClassList=new ArrayList<>();
     @TableField(exist = false)
     private static final long serialVersionUID = 16707L;
 }

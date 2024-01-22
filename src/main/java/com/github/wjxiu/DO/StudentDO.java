@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.wjxiu.conf.MyLocalDateTimeDeSerializer;
 import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
 
@@ -58,11 +60,14 @@ public class StudentDO implements Serializable {
      */
     @TableField(value = "email")
     private String email;
+
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
     /**
      *

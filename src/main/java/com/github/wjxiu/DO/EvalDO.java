@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.wjxiu.conf.MyLocalDateTimeDeSerializer;
 import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
 
@@ -36,10 +38,12 @@ public class EvalDO implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 }

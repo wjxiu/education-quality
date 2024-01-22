@@ -42,15 +42,6 @@ public class TeacherDO implements Serializable {
      */
     @TableField(value = "email")
     private String email;
-    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
-    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
-    @TableField(value = "create_time", fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
-    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
-    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
     /**
      *
      */
@@ -62,6 +53,15 @@ public class TeacherDO implements Serializable {
      */
     @TableField(value = "admin_flag")
     private Integer adminFlag;
+
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 18677L;

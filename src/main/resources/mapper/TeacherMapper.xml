@@ -75,6 +75,9 @@
     <select id="selectTeacherList1" resultType="com.github.wjxiu.DO.TeacherDO">
         select * from teacher t
         <where>
+            <if test="teacher.id!=null and teacher.id!='' ">
+                and t.id  #{teacher.id}
+            </if>
             <if test="teacher.realName!=null and teacher.realName!='' ">
                 and t.real_name like concat('%', #{teacher.realName}, '%')
             </if>

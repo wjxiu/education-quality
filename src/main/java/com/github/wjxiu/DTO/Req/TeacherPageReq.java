@@ -16,5 +16,6 @@ public class TeacherPageReq {
      *
      */
     private String realName;
+    private String id;
     private Integer adminFlag;
 }

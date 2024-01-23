@@ -18,6 +18,7 @@ import com.github.wjxiu.DTO.Resp.TeacherPageResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.service.TeacherService;
+import com.github.wjxiu.utils.PasswordUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -46,11 +47,6 @@ public class TeacherController {
         PageInfo<TeacherPageResp> res = teacherService.selectTeacherList(teacher, pageNum, pageSize);
         return R.success(res);
     }
-    @Data
-    class testparam{
-        Integer param1;
-        String param2;
-    }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){
         TeacherDO teacherDO = teacherService.getById(id);
@@ -64,6 +60,7 @@ public class TeacherController {
     }
     @PostMapping
     public R save(@Validated @RequestBody TeacherDO teacherDO){
+        teacherDO.setPassword(PasswordUtil.hashPassword(teacherDO.getPassword()));
         boolean save = teacherService.save(teacherDO);
         if (save)return R.success(teacherDO);
         throw new ClientException("新增教师失败");

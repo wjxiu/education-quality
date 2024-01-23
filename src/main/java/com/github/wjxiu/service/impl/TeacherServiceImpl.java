@@ -126,6 +126,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
         }
         if (Objects.equals(entity.getPassword(), "")){
             entity.setPassword(null);
+        }else{
+            entity.setPassword(PasswordUtil.hashPassword(entity.getPassword()));
         }
         boolean b = super.updateById(entity);
         if (!b)throw new ClientException("更新教师失败");

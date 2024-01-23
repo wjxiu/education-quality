@@ -62,7 +62,9 @@ public class TeacherDO implements Serializable {
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
+    @TableLogic
+    @TableField(value = "del_flag")
+    private Integer delFlag;
     @TableField(exist = false)
     private static final long serialVersionUID = 18677L;
 }

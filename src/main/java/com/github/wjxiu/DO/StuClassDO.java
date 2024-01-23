@@ -69,11 +69,7 @@ public class StuClassDO implements Serializable {
     private Integer startYear;
     @TableField(value = "term")
     private String term;
-    /**
-     * 1 已删除 0未删除
-     */
-    @TableField(value = "del_flag")
-    private Integer delFlag;
+
     @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time", fill = FieldFill.INSERT)
@@ -82,6 +78,14 @@ public class StuClassDO implements Serializable {
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
+
+    /**
+     * 1 已删除 0未删除
+     */
+    @TableLogic
+    @TableField(value = "del_flag")
+    private Integer delFlag;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

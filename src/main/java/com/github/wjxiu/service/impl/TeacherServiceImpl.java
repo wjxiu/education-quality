@@ -28,6 +28,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author xiu
@@ -122,6 +123,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
             studentCourseClassTeacherDO.setTeacherName(entity.getRealName());
             int i1 = studentCourseClassTeacherMapper.updateById(studentCourseClassTeacherDO);
             if (i1==0)throw new ClientException("更新教师失败");
+        }
+        if (Objects.equals(entity.getPassword(), "")){
+            entity.setPassword(null);
         }
         boolean b = super.updateById(entity);
         if (!b)throw new ClientException("更新教师失败");

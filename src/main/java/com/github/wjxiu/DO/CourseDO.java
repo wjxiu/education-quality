@@ -4,12 +4,25 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.IntConsumer;
+import java.util.stream.IntStream;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.github.wjxiu.conf.MyLocalDateTimeDeSerializer;
 import com.github.wjxiu.conf.MyLocalDateTimeSerializer;
 import lombok.Data;
+import lombok.SneakyThrows;
+import org.junit.jupiter.api.Test;
 
 /**
  * 课程表
@@ -17,7 +30,7 @@ import lombok.Data;
  */
 @TableName(value ="course")
 @Data
-public class CourseDO implements Serializable {
+public class CourseDO implements Serializable,Cloneable {
     /**
      *
      */
@@ -58,4 +71,22 @@ public class CourseDO implements Serializable {
     private LocalDateTime updateTime;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+    @Test
+    public void test1(){
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        System.out.println(list.stream().mapToInt(Integer::intValue).sum());
+        System.out.println(list.stream().reduce(new BinaryOperator<Integer>() {
+            @Override
+            public Integer apply(Integer integer, Integer integer2) {
+                System.out.print(integer + "--");
+                System.out.println(integer2);
+                return integer + integer2;
+            }
+        }).get());
+        System.out.println(list.stream().mapToInt(Integer::intValue).count());
+    }
 }

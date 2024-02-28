@@ -13,5 +13,6 @@ public class UserInfoResp {
     Integer type;
     Boolean isAdmin;
     Boolean isStudent;
+    String roles;
 
 }

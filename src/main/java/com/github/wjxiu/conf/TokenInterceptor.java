@@ -66,4 +66,9 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
         throw new ClientException("没有token");
     }
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        UserContext.removeUser();
+    }
+
 }

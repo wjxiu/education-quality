@@ -71,6 +71,7 @@ public class UserController {
             StudentDO studentDO = studentService.getById(userInfoDTO.getUserId());
             UserInfoResp userInfoResp = new UserInfoResp();
             userInfoResp.setId(studentDO.getId());
+            userInfoResp.setRoles("student");
             userInfoResp.setIsAdmin(false);
             userInfoResp.setIsStudent(true);
             userInfoResp.setType(0);
@@ -80,6 +81,7 @@ public class UserController {
             UserInfoResp userInfoResp = new UserInfoResp();
             TeacherDO teacherDO = teacherService.getById(userInfoDTO.getUserId());
             userInfoResp.setId(teacherDO.getId());
+            userInfoResp.setRoles("teacher");
             userInfoResp.setIsAdmin(false);
             userInfoResp.setType(1);
             userInfoResp.setIsStudent(false);
@@ -89,6 +91,7 @@ public class UserController {
             UserInfoResp userInfoResp = new UserInfoResp();
             TeacherDO teacherDO = teacherService.getById(userInfoDTO.getUserId());
             userInfoResp.setId(teacherDO.getId());
+            userInfoResp.setRoles("admin");
             userInfoResp.setIsAdmin(true);userInfoResp.setType(2);
             userInfoResp.setIsStudent(false);
             userInfoResp.setRealName(teacherDO.getRealName());
@@ -99,8 +102,11 @@ public class UserController {
     }
     @PostMapping("/logout")
     public R logout(){
-        log.info("清楚用户");
         UserContext.removeUser();
         return R.success();
+    }
+    @GetMapping("/getInfo")
+    public String getInfo(){
+        return UserContext.getRealName();
     }
 }

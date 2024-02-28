@@ -58,8 +58,6 @@ public class EvalServiceImpl extends ServiceImpl<EvalMapper, EvalDO> implements 
     public List<EvalDO> list(String evalItemName,Integer id, Integer pageNum, Integer pageSize) {
       return   mapper.pagelist(evalItemName,id , pageNum, pageSize);
     }
-
-
 }
 
 

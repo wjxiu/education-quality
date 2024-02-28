@@ -96,4 +96,6 @@ public class R<T> implements Serializable {
     public boolean isSuccess() {
         return SUCCESS_CODE.equals(code);
     }
+
+    
 }

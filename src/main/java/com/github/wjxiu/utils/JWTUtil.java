@@ -3,6 +3,7 @@
 package com.github.wjxiu.utils;
 
 import com.alibaba.fastjson2.JSON;
+import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.token.UserInfoDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -77,8 +78,8 @@ public final class JWTUtil {
      */
     public static UserInfoDTO parseJwtToken(String jwtToken) {
         if (StringUtils.hasText(jwtToken)) {
-            String actualJwtToken = jwtToken.substring(TOKEN_PREFIX.length());
             try {
+                String actualJwtToken = jwtToken.substring(TOKEN_PREFIX.length());
                 Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(actualJwtToken).getBody();
                 Date expiration = claims.getExpiration();
                 if (expiration.after(new Date())) {
@@ -91,6 +92,6 @@ public final class JWTUtil {
                 log.error("JWT Token解析失败，请检查", ex);
             }
         }
-        return null;
+        throw new ClientException("JWT Token解析失败");
     }
 }

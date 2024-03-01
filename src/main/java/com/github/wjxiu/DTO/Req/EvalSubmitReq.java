@@ -14,9 +14,11 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EvalSubmitReq {
-    Integer stuId;
+    Integer studentId;
     //班级id
     Integer stuClassId;
     List<EvalSubmitItem> list;
     Integer teacherId;
+//    学生对老师的评价
+    String comment;
 }

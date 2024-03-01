@@ -53,9 +53,25 @@ public class TeacherController {
         teacherDO.setPassword("");
         return R.success(teacherDO);
     }
+
+    /**
+     * 获取教师所教授的全部班级
+     * @param teacherIds
+     * @return
+     */
     @GetMapping("/getTeacherClasses/{teacherIds}")
     public R getTeacherClasses(@PathVariable Integer teacherIds){
-       List<StudentCourseClassTeacherDO> list= teacherService.getTeacherClasses(teacherIds);
+       List<StuClassDO> list= teacherService.getTeacherClasses(teacherIds);
+        return R.success(list);
+    }
+    /**
+     * 获取教师所教授的全部课程
+     * @param teacherIds
+     * @return
+     */
+    @GetMapping("/getTeacherCourse/{teacherIds}")
+    public R getTeacherCourse(@PathVariable Integer teacherIds){
+        List<StuClassDO> list= teacherService.getTeacherCourse(teacherIds);
         return R.success(list);
     }
     @PostMapping

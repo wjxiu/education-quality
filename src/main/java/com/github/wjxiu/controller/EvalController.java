@@ -3,7 +3,6 @@ package com.github.wjxiu.controller;
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.EvalDO;
 import com.github.wjxiu.DTO.Req.EvalSubmitReq;
-import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.R;
 import com.github.wjxiu.common.token.UserContext;
@@ -37,10 +36,10 @@ public class EvalController {
      * @param teacherId
      * @return
      */
-    @GetMapping("/stu/{teacherId}")
-    public R getTeacherEvalByStuidAndTeacherId(@PathVariable("teacherId")  Integer teacherId){
+    @GetMapping("/stu/{teacherId}/{stuClassId}")
+    public R getTeacherEvalByStuidAndTeacherId(@PathVariable("teacherId")  Integer teacherId,@PathVariable("stuClassId") Integer stuClassId){
         Integer stuId = UserContext.getUserId();
-        return R.success(evalService.getTeacherEvalByStuidAndTeacherId(stuId,teacherId));
+        return R.success(evalService.getTeacherEvalByStuidAndTeacherId(stuId, stuClassId, teacherId));
     }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){

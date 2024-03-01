@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.wjxiu.DO.StudentEvalDO;
 import com.github.wjxiu.DTO.Resp.EvalRateResp;
 import com.github.wjxiu.mapper.StudentEvalMapper;
+import com.github.wjxiu.mapper.StudentReviewsMapper;
+import com.github.wjxiu.service.StuClassService;
 import com.github.wjxiu.service.StudentEvalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class StudentEvalServiceImpl extends ServiceImpl<StudentEvalMapper, Stude
     public List<EvalRateResp> getStudentRatePage(EvalRateResp resp,Integer pageNum,Integer pageSize) {
        return  studentEvalMapper.getStudentRatePage(resp,pageNum,pageSize);
     }
+
+
 }
 
 

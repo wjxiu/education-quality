@@ -72,6 +72,12 @@ public class StudentCourseClassTeacherDO implements Serializable {
      */
     @TableField(value = "teacher_name")
     private String teacherName;
+    @TableField(value = "comment")
+    private String comment;
+    @TableField(value = "comment_time")
+    @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
+    @JsonSerialize(using = MyLocalDateTimeSerializer.class)
+    private LocalDateTime commentTime;
 
     @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)

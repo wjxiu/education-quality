@@ -22,4 +22,11 @@ public interface StuClassService extends IService<StuClassDO> {
     List<StudentDO> getStuClassStudent(Integer stuClassId,Integer studentId, String studentName);
 
     boolean deleteClassStudent(Integer stuClassId, List<Integer> stuIds);
+
+    /**
+    * @author xiu
+    * @description 针对表【student_reviews(学生对老师的评价)】的数据库操作Service
+    * @createDate 2024-02-29 17:35:49
+    */
+
 }

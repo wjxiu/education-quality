@@ -25,7 +25,9 @@ public class R<T> implements Serializable {
         return new R<Void>()
                 .setCode(R.SUCCESS_CODE);
     }
-
+    public void test(){
+        
+    }
     /**
      * 构造带返回数据的成功响应
      */

@@ -27,6 +27,7 @@ public class StuClassController {
     public R<PageInfo<StuClassDO>> list(StuClassDO stuClassDO,
                                      @RequestParam(defaultValue = "1") Integer pageNum,
                                      @RequestParam(defaultValue = "10") Integer pageSize) {
+        log.info("班级信息：{}",stuClassService.pageList(stuClassDO,pageNum,pageSize));
         return R.success(new PageInfo<>(stuClassService.pageList(stuClassDO,pageNum,pageSize)));
     }
     @GetMapping("/addStuClassStudent")

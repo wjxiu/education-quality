@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.wjxiu.mapper.StudentReviewsMapper">
+
+    <resultMap id="BaseResultMap" type="com.github.wjxiu.DO.StudentReviewsDO">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="studentId" column="student_id" jdbcType="INTEGER"/>
+            <result property="teacherId" column="teacher_id" jdbcType="INTEGER"/>
+            <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+            <result property="evaluate" column="evaluate" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,student_id,teacher_id,
+        course_id,evaluate,create_time,
+        update_time
+    </sql>
+    <select id="pageList" resultType="com.github.wjxiu.DTO.Resp.StudentReviewsResp">
+        select sr.*,student.real_name as 'studentName', teacher.real_name as teacherName
+        from student_reviews sr
+        join student on sr.student_id = student.id
+        join teacher on sr.teacher_id = teacher.id
+#         join stu on sr.course_id = course.id
+        <where>
+            <if test="studentReviewsDO.id!=null and studentReviewsDO.id !=''">
+              and   sr.id=#{studentReviewsDO.id}
+            </if>
+            <if test="studentReviewsDO.teacherId!=null and studentReviewsDO.teacherId !=''">
+                and   sr.teacher_id=#{studentReviewsDO.teacherId}
+            </if>
+            <if test="studentReviewsDO.courseId!=null and studentReviewsDO.courseId !=''">
+                and   sr.course_id=#{studentReviewsDO.courseId}
+            </if>
+            <if test="studentReviewsDO.evaluate!=null and studentReviewsDO.evaluate !=''">
+                and   sr.evaluate=#{studentReviewsDO.evaluate}
+            </if>
+        </where>
+    </select>
+</mapper>

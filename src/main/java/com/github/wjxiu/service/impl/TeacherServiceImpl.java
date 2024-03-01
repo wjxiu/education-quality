@@ -104,9 +104,9 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
     }
 
     @Override
-    public List<StudentCourseClassTeacherDO> getTeacherClasses(Integer teacherId) {
-       return  studentCourseClassTeacherMapper.selectList(
-                new LambdaQueryWrapper<StudentCourseClassTeacherDO>().eq(StudentCourseClassTeacherDO::getTeacherId, teacherId));
+    public List<StuClassDO> getTeacherClasses(Integer teacherId) {
+       return  stuClassMapper.selectList(
+                new LambdaQueryWrapper<StuClassDO>().eq(StuClassDO::getTeacherId, teacherId).select(StuClassDO::getId,StuClassDO::getName));
     }
     @Transactional(rollbackFor = Throwable.class)
     @Override
@@ -132,6 +132,11 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
         boolean b = super.updateById(entity);
         if (!b)throw new ClientException("更新教师失败");
         return true;
+    }
+
+    @Override
+    public List<StuClassDO> getTeacherCourse(Integer teacherId) {
+        return  stuClassMapper.selectList(new LambdaQueryWrapper<StuClassDO>().eq(StuClassDO::getTeacherId, teacherId).select(StuClassDO::getCourseName, StuClassDO::getCourseId)).stream().distinct().toList();
     }
 }
 

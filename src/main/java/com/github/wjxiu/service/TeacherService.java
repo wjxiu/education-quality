@@ -2,6 +2,7 @@ package com.github.wjxiu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
+import com.github.wjxiu.DO.StuClassDO;
 import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
 import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
@@ -27,8 +28,10 @@ public interface TeacherService extends IService<TeacherDO> {
 
     PageInfo<TeacherPageResp> selectTeacherList(TeacherPageReq teacher, Integer pageNum, Integer pageSize);
 
-    List<StudentCourseClassTeacherDO> getTeacherClasses(Integer teacherId);
+    List<StuClassDO> getTeacherClasses(Integer teacherId);
 
     @Override
      boolean updateById(TeacherDO entity);
+
+    List<StuClassDO> getTeacherCourse(Integer teacherIds);
 }

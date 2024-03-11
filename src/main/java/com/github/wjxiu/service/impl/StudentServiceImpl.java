@@ -4,6 +4,7 @@
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageInfo;
+import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
 import com.github.wjxiu.DO.StudentDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
 import com.github.wjxiu.DTO.Req.StudentPageReq;
@@ -66,12 +67,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
 
     @Override
     public Boolean changePwd(ChangePwdReq changePwdReq) {
-        if (!changePwdReq.getRepeatedPasswd().equals(changePwdReq.getNewPasswd()))throw new ClientException("两次密码不相同");
+        if (!changePwdReq.getNewPassword().equals(changePwdReq.getConfirmPassword()))throw new ClientException("两次密码不相同");
         Integer userId = UserContext.getUserId();
         StudentDO studentDO = getById(userId);
         String password = studentDO.getPassword();
-        if (!PasswordUtil.verifyPassword(changePwdReq.getOriginalPasswd(),password)) throw new ClientException("原密码错误");
-        String s = PasswordUtil.hashPassword(changePwdReq.getNewPasswd());
+        if (!PasswordUtil.verifyPassword(changePwdReq.getOldPassword(),password)) throw new ClientException("原密码错误");
+        String s = PasswordUtil.hashPassword(changePwdReq.getConfirmPassword());
         studentDO.setPassword(s);
         return  studentMapper.update(studentDO,new LambdaQueryWrapper<StudentDO>().eq(StudentDO::getId,userId))>0;
     }
@@ -95,11 +96,15 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, StudentDO>
         StudentDO studentDO = getById(entity.getId());
         if (password.isEmpty()){
             entity.setPassword(studentDO.getPassword());
-            return super.updateById(entity);
         }
         String encrptPasswd = PasswordUtil.hashPassword(password);
         entity.setPassword(encrptPasswd);
-      return super.updateById(entity);
+        StudentCourseClassTeacherDO studentCourseClassTeacherDO = new StudentCourseClassTeacherDO();
+        studentCourseClassTeacherDO.setStudentName(entity.getRealName());
+        int update = studentCourseClassTeacherMapper.update(studentCourseClassTeacherDO, new LambdaQueryWrapper<StudentCourseClassTeacherDO>().eq(
+                StudentCourseClassTeacherDO::getStudentId, entity.getId()
+        ));
+        return super.updateById(entity)&&update>0;
     }
 
 

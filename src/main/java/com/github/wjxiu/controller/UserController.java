@@ -55,10 +55,11 @@ public class UserController {
         }
     }
     @PostMapping("/changepasswd")
-    public R changepasswd(@Validated ChangePwdReq changePwdReq,Integer type){
-        if (type==0){
+    public R changepasswd(@RequestBody@Validated ChangePwdReq changePwdReq){
+        changePwdReq.setId(UserContext.getUserId());
+        if (changePwdReq.getType()==0){
             return  R.success(studentService.changePwd(changePwdReq));
-        }else if(type==1){
+        }else if(changePwdReq.getType()==1){
             return  R.success(teacherService.changePwd(changePwdReq));
         }else{
             throw new ClientException("用户类型错误");

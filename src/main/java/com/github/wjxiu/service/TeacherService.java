@@ -3,7 +3,6 @@ package com.github.wjxiu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.github.wjxiu.DO.StuClassDO;
-import com.github.wjxiu.DO.StudentCourseClassTeacherDO;
 import com.github.wjxiu.DO.TeacherDO;
 import com.github.wjxiu.DTO.Req.ChangePwdReq;
 import com.github.wjxiu.DTO.Req.TeacherPageReq;
@@ -34,4 +33,11 @@ public interface TeacherService extends IService<TeacherDO> {
      boolean updateById(TeacherDO entity);
 
     List<StuClassDO> getTeacherCourse(Integer teacherIds);
+    /**
+     * 获取教师教授班级的年份列表
+     *
+     * @param teacherIds
+     * @return
+     */
+    List<Integer> getTeacherYear(Integer teacherIds);
 }

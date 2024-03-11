@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,14 +73,14 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
 
     @Override
     public Boolean changePwd(ChangePwdReq changePwdReq) {
-        if (!changePwdReq.getRepeatedPasswd().equals(changePwdReq.getNewPasswd()))
+        if (!changePwdReq.getNewPassword().equals(changePwdReq.getConfirmPassword()))
             throw new ClientException("两次密码不相同");
         Integer userId = UserContext.getUserId();
         TeacherDO teacherDO = getById(userId);
         String password = teacherDO.getPassword();
-        if (!PasswordUtil.verifyPassword(changePwdReq.getOriginalPasswd(), password))
+        if (!PasswordUtil.verifyPassword(changePwdReq.getOldPassword(), password))
             throw new ClientException("原密码错误");
-        String s = PasswordUtil.hashPassword(changePwdReq.getNewPasswd());
+        String s = PasswordUtil.hashPassword(changePwdReq.getConfirmPassword());
         teacherDO.setPassword(s);
         return teacherMapper.update(teacherDO, new LambdaQueryWrapper<TeacherDO>().eq(TeacherDO::getId, userId)) > 0;
     }
@@ -137,6 +138,17 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, TeacherDO>
     @Override
     public List<StuClassDO> getTeacherCourse(Integer teacherId) {
         return  stuClassMapper.selectList(new LambdaQueryWrapper<StuClassDO>().eq(StuClassDO::getTeacherId, teacherId).select(StuClassDO::getCourseName, StuClassDO::getCourseId)).stream().distinct().toList();
+    }
+    /**
+     * 获取教师教授班级的年份列表
+     *
+     * @param teacherIds
+     * @return
+     */
+    @Override
+    public List<Integer> getTeacherYear(Integer teacherIds) {
+        return  stuClassMapper.selectList(new LambdaQueryWrapper<StuClassDO>().eq(StuClassDO::getTeacherId, teacherIds).select(StuClassDO::getCourseName, StuClassDO::getStartYear)).stream().map(StuClassDO::getStartYear).distinct().sorted(Comparator.reverseOrder()).toList();
+
     }
 }
 

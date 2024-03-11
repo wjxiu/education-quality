@@ -53,7 +53,8 @@ public class TeacherDO implements Serializable {
      */
     @TableField(value = "admin_flag")
     private Integer adminFlag;
-
+    @TableField(value = "gender")
+    private Integer gender;
     @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)
     @TableField(value = "create_time", fill = FieldFill.INSERT)

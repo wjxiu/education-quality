@@ -12,4 +12,5 @@ import lombok.Data;
 public class UserRegisterReq {
     StudentDO studentDO;
     TeacherDO teacherDO;
+    Boolean isadmin;
 }

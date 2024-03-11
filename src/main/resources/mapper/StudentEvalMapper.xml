@@ -40,6 +40,7 @@
         student_eval se
         JOIN student_course_class_teacher scct ON se.stu_id = scct.student_id
         AND se.teacher_id = scct.teacher_id
+            and se.stu_class_id=scct.stu_class_id
         JOIN eval e ON e.id = se.eval_id
         <where>
 

@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Slf4j
+@Validated
 @RequestMapping("/teacher")
 public class TeacherController {
     @Autowired
@@ -72,6 +73,17 @@ public class TeacherController {
     @GetMapping("/getTeacherCourse/{teacherIds}")
     public R getTeacherCourse(@PathVariable Integer teacherIds){
         List<StuClassDO> list= teacherService.getTeacherCourse(teacherIds);
+        return R.success(list);
+    }
+
+    /**
+     * 获取教师教授班级的年份列表
+     * @param teacherIds
+     * @return
+     */
+    @GetMapping("/getTeacherYear/{teacherIds}")
+    public R getTeacherYear(@PathVariable Integer teacherIds){
+        List<Integer> list= teacherService.getTeacherYear(teacherIds);
         return R.success(list);
     }
     @PostMapping

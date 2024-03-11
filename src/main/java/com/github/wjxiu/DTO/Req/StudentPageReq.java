@@ -50,4 +50,6 @@ public class StudentPageReq {
      */
     @TableField(value = "email")
     private String email;
+    @TableField(value = "gendeer")
+    private Integer gender;
 }

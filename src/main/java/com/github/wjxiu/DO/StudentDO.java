@@ -60,6 +60,8 @@ public class StudentDO implements Serializable {
      */
     @TableField(value = "email")
     private String email;
+    @TableField(value = "gender")
+    private Integer gender;
 
     @JsonDeserialize(using = MyLocalDateTimeDeSerializer.class)		// 反序列化
     @JsonSerialize(using = MyLocalDateTimeSerializer.class)

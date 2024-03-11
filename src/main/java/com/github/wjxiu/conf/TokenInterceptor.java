@@ -1,20 +1,27 @@
 package com.github.wjxiu.conf;
 
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.github.wjxiu.common.Exception.ClientException;
 import com.github.wjxiu.common.token.UserContext;
 import com.github.wjxiu.common.token.UserInfoDTO;
 import com.github.wjxiu.utils.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.concurrent.DefaultManagedAwareThreadFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * @author xiu
@@ -71,4 +78,47 @@ public class TokenInterceptor implements HandlerInterceptor {
         UserContext.removeUser();
     }
 
+}
+class filtertest extends Thread {
+
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+    }
+
+    @Override
+    public void run() {
+        super.run();
+    }
+}
+class a1 implements Runnable{
+
+    @Override
+    public void run() {
+        Object[] objects = new Object[12];
+        int length = objects.length;
+        new ThreadPoolExecutor(1,1,1, TimeUnit.DAYS,new LinkedBlockingDeque<>(30),
+                new DefaultManagedAwareThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
+        HashMap<Integer, Integer> has = new HashMap<>();
+
+    }
+
+
+
+    public static void main(String[] args) {
+        ConfigurationCustomizer configurationCustomizer = System.out::println;
+        try (
+
+                         FileOutputStream fileOutputStream = new FileOutputStream("out.txt");
+            DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream);
+
+        ){
+            dataOutputStream.writeBoolean(true);
+            dataOutputStream.writeByte(1);
+            // 输出流
+// 输出任意数据类型
+//            System.out.println(dataInputStream.readBoolean());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

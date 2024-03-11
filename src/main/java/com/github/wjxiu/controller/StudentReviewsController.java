@@ -70,8 +70,11 @@ public class StudentReviewsController {
     throw new ClientException("删除学生评价失败");
   }
   @GetMapping("/commentOfTeacher")
-  public R commentOfTeacher(@RequestParam(value = "stuClassId",required = false)Integer stuClassId,@RequestParam(value = "courseId",required = false)Integer courseId){
-   List<StudentReviewsResp> list= studentReviewsService.commentOfTeacher(stuClassId,courseId);
+  public R commentOfTeacher(@RequestParam(value = "stuClassId",required = false)Integer stuClassId,
+                            @RequestParam(value = "courseId",required = false)Integer courseId,
+                            @RequestParam(value = "startYear",required = false)Integer startYear,
+                            @RequestParam(value = "term",required = false)String term){
+   List<StudentReviewsResp> list= studentReviewsService.commentOfTeacher(stuClassId,courseId,startYear,term);
    return R.success(new PageInfo<StudentReviewsResp>(list));
   }
 }

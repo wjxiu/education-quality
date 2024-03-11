@@ -9,9 +9,11 @@ import com.github.wjxiu.common.R;
 import com.github.wjxiu.service.StuClassService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,7 +21,8 @@ import java.util.List;
  * @create 2024-01-14 0:08
  */
 @RestController
-@RequiredArgsConstructor@Slf4j
+@RequiredArgsConstructor()
+@Slf4j
 @RequestMapping("/stuClass")
 public class StuClassController {
     final StuClassService stuClassService;

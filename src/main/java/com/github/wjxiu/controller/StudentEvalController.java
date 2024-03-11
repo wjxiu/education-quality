@@ -30,6 +30,15 @@ public class StudentEvalController {
         PageInfo<EvalRateResp> evalRateRespPageInfo = new PageInfo<>(studentEvalService.getStudentRatePage(param,pageNum,pageSize));
         return R.success(evalRateRespPageInfo);
     }
+    @GetMapping({"/getOneStudentRate"})
+    public R getStudentRate(@RequestParam("studentId") Integer studentId,
+                            @RequestParam("pageNum") Integer pageNum,
+                            @RequestParam("pageSize") Integer pageSize){
+        EvalRateResp evalRateResp = new EvalRateResp();
+        evalRateResp.setStudentId(studentId);
+        PageInfo<EvalRateResp> evalRateRespPageInfo = new PageInfo<>(studentEvalService.getStudentRatePage(evalRateResp,pageNum,pageSize));
+        return R.success(evalRateRespPageInfo);
+    }
     @GetMapping("/{id}")
     public R getinfo(@PathVariable("id") Integer id){
         EvalRateResp evalRateResp = new EvalRateResp();
@@ -53,6 +62,7 @@ public class StudentEvalController {
         studentEvalDO.setId(evalRateResp.getId());
         //studentEvalDO.setStuId(evalRateResp.getStudentId());
         studentEvalDO.setRate(evalRateResp.getRate());
+        log.info(studentEvalDO.toString());
         boolean save = studentEvalService.updateById(studentEvalDO);
         if (save)return R.success();
         throw new ClientException("修改专业失败");

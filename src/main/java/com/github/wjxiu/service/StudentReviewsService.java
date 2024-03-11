@@ -15,5 +15,5 @@ public interface StudentReviewsService extends IService<StudentReviewsDO> {
 
     List<? extends StudentReviewsResp> pageList(StudentReviewsDO studentReviewsDO, Integer pageNum, Integer pageSize);
 
-    List<StudentReviewsResp> commentOfTeacher(Integer stuClassId, Integer courseId);
+    List<StudentReviewsResp> commentOfTeacher(Integer stuClassId, Integer courseId,Integer startYear,String term);
 }

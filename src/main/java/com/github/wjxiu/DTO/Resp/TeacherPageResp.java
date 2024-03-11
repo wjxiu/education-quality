@@ -63,7 +63,8 @@ public class TeacherPageResp {
      */
     @TableField(value = "admin_flag")
     private Integer adminFlag;
-
+    @TableField(value = "gender")
+    private Integer gender;
     /**
      * 教授的课程
      */

@@ -16,7 +16,7 @@ import java.util.List;
 */
 public interface StuClassMapper extends BaseMapper<StuClassDO> {
 
-    List<StuClassDO> pageList(@Param("stuClass") StuClassDO stuClassDO,
+    List<StuClassDO> pageList(@Param("stuClassDO") StuClassDO stuClassDO,
                               @Param("pageNum") Integer pageNum,
                               @Param("pageSize") Integer pageSize);
 

@@ -11,12 +11,12 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class ChangePwdReq {
-    @NotNull(message = "id不能为空")
     Integer id;
     @NotBlank
-    String originalPasswd;
+    String oldPassword;
     @NotBlank
-    String repeatedPasswd;
+    String newPassword;
     @NotBlank
-    String newPasswd;
+    String confirmPassword;
+    Integer type;
 }
